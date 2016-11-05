@@ -1,0 +1,94 @@
+.skin-blue .main-header .navbar {
+    background-color: #275b80;
+}
+.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+    background-color: #003148;
+}
+.skin-blue .sidebar-menu > li.header {
+    background: #002645;
+}
+.skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a {
+    background: #275b80;
+    /*    border-left-color: #3c8dbc;
+        color: #fff;*/
+}
+.btn-action{
+    background-color: #275b80;
+    color: #fff;
+}
+.btn-action:hover {
+    background-color: #002645;
+    color: #fff;
+}
+.alert {
+    position: absolute;
+    right: 5px;
+    z-index: 1000;
+}
+.block-error{
+    color: #b94a48;
+}
+input[type=checkbox]:not(old),
+input[type=radio   ]:not(old){
+    width   : 28px;
+    margin  : 0;
+    padding : 0;
+    opacity : 0;
+}
+
+input[type=checkbox]:not(old) + label,
+input[type=radio   ]:not(old) + label{
+    display      : inline-block;
+    margin-left  : -28px;
+    padding-left : 28px;
+    background   : url('checks.png') no-repeat 0 0;
+    line-height  : 24px;
+}
+
+input[type=checkbox]:not(old):checked + label{
+    background-position : 0 -24px;
+}
+
+input[type=radio]:not(old):checked + label{
+    background-position : 0 -48px;
+}
+span.required {
+    color: #ff0000;
+}
+
+/* home aplikasi */
+.isi-content {
+    min-height: 550px;
+}
+.ugi-header {
+    background-color: #003148;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+.ugi-header h4 {
+    height: 100%;
+    vertical-align: middle;
+}
+.btn-left, .btn-right {
+    text-align: center;
+}
+
+.btn-left img, .btn-right img {
+    max-width: 100px;
+}
+@media (min-width: 520px) {
+    .btn-left img, .btn-right img {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header img{
+        max-width: 170px;
+    }
+    .isi-content {
+        min-height: 400px;
+    }
+}

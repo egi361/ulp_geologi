@@ -1,0 +1,17 @@
+ERROR - 2015-11-13 16:29:16 --> Severity: Warning --> mysqli::real_connect(): (HY000/2002): No connection could be made because the target machine actively refused it.
+ D:\guestbook\system\database\drivers\mysqli\mysqli_driver.php 161
+ERROR - 2015-11-13 16:29:16 --> Unable to connect to the database
+ERROR - 2015-11-13 16:29:21 --> Severity: Warning --> mysqli::real_connect(): (HY000/2002): No connection could be made because the target machine actively refused it.
+ D:\guestbook\system\database\drivers\mysqli\mysqli_driver.php 161
+ERROR - 2015-11-13 16:29:21 --> Unable to connect to the database
+ERROR - 2015-11-13 16:29:27 --> Severity: Warning --> mysqli::real_connect(): (HY000/2002): No connection could be made because the target machine actively refused it.
+ D:\guestbook\system\database\drivers\mysqli\mysqli_driver.php 161
+ERROR - 2015-11-13 16:29:27 --> Unable to connect to the database
+ERROR - 2015-11-13 22:31:15 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5 - Invalid query: select * from 
+								guest_book gb join event e on gb.id_event=e.id_event 
+								join kabupaten k on gb.city=k.id
+								join provinsi p on gb.provinsi=p.id
+								where gb.id_event=
+ERROR - 2015-11-13 22:31:20 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3 - Invalid query: select * from 
+								file f join event e on f.id_event=e.id_event 
+								where f.id_event=
