@@ -7,13 +7,11 @@ class Role extends CController {
 		$this->load->model(array('RoleModel'));
 		
 	}
-	public function index()
-	{
+	public function index(){
 		$this->load->view('role/index');
 	}	
 
-	public function getRole()
-	{
+	public function getRole(){
 		$data=$this->RoleModel->get();
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
 		$output['aaData']=array();
@@ -25,28 +23,31 @@ class Role extends CController {
 		}
 		echo json_encode($output);
 	}
-	public function insert()
-	{
-	$this->load->view('role/insert');
+
+	public function insert(){
+		$this->load->view('role/insert');
 	}
-	public function insertData()
-	{
+
+	public function insertData(){
 		$data['role_name']=$this->input->post('role_name');
 		$this->RoleModel->simpan($data);
 		echo 'Data Berhasil Disimpan.';
 	}
+
 	public function edit($id){
-	$role=$this->RoleModel->getById($id);
-	$data['data']=$role;
-	$this->load->view('role/edit',$data);
+		$role=$this->RoleModel->getById($id);
+		$data['data']=$role;
+		$this->load->view('role/edit',$data);
 	}
+
 	public function editData($id){
-	$data['role_name']=$this->input->post('name');
-	$this->RoleModel->update($id,$data);
-	echo 'Data Berhasil Disimpan.';
+		$data['role_name']=$this->input->post('name');
+		$this->RoleModel->update($id,$data);
+		echo 'Data Berhasil Disimpan.';
 	}
+
 	function delete($id){
-	$this->RoleModel->hapus($id);
-	$this->load->view('role/delete');
+		$this->RoleModel->hapus($id);
+		$this->load->view('role/delete');
 	}
 }

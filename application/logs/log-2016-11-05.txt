@@ -1,0 +1,2 @@
+ERROR - 2016-11-05 08:25:48 --> Severity: Warning --> mysqli::real_connect(): (HY000/1049): Unknown database 'guest_book' C:\xampp\htdocs\ulp_geologi\system\database\drivers\mysqli\mysqli_driver.php 161
+ERROR - 2016-11-05 08:25:48 --> Unable to connect to the database
