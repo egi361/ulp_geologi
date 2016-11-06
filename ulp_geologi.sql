@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2016 at 04:28 AM
+-- Generation Time: Nov 06, 2016 at 03:50 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `guest_book`
+-- Database: `ulp_geologi`
 --
 
 -- --------------------------------------------------------
@@ -117,6 +117,30 @@ CREATE TABLE `guest_book` (
   `description` varchar(255) DEFAULT NULL,
   `satisfaction` varchar(255) DEFAULT NULL,
   `visit_time_out` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jabatan`
+--
+
+CREATE TABLE `jabatan` (
+  `id_jabatan` int(20) NOT NULL,
+  `kode_jabatan` varchar(20) NOT NULL,
+  `nama_jabatan` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jenis_belanja`
+--
+
+CREATE TABLE `jenis_belanja` (
+  `id_jenis_belanja` int(11) NOT NULL,
+  `keterangan` varchar(500) NOT NULL,
+  `kode_jenis_belanja` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -638,6 +662,70 @@ INSERT INTO `kabupaten` (`id`, `provinsi_id`, `nama_kabupaten`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kegiatan`
+--
+
+CREATE TABLE `kegiatan` (
+  `id_kegiatan` int(20) NOT NULL,
+  `kode_kegiatan` varchar(20) NOT NULL,
+  `nama_kegiatan` varchar(200) NOT NULL,
+  `tahun_anggaran` year(4) NOT NULL,
+  `awal_pelaksanaan` date NOT NULL,
+  `akhir_pelaksanaan` date NOT NULL,
+  `jenis_kegiatan` varchar(100) NOT NULL,
+  `jenis_anggaran` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `metode_pemilihan`
+--
+
+CREATE TABLE `metode_pemilihan` (
+  `id_metode_pemilihan` int(20) NOT NULL,
+  `kode_metode_pemilihan` varchar(20) NOT NULL,
+  `keterangan` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pegawai`
+--
+
+CREATE TABLE `pegawai` (
+  `id_pegawai` int(20) NOT NULL,
+  `nama_pegawai` varchar(50) NOT NULL,
+  `kode_pegawai` varchar(20) NOT NULL,
+  `alamat` varchar(200) NOT NULL,
+  `pendidikan` varchar(100) NOT NULL,
+  `jenis_kelamin` varchar(50) NOT NULL,
+  `id_jabatan` int(20) NOT NULL,
+  `id_unit_satuan_kerja` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengadaan`
+--
+
+CREATE TABLE `pengadaan` (
+  `id_pengadaan` int(20) NOT NULL,
+  `kode_pengadaan` varchar(20) NOT NULL,
+  `id_jenis_belanja` int(20) NOT NULL,
+  `id_kegiatan` int(20) NOT NULL,
+  `id_unit_satuan_kerja` int(20) NOT NULL,
+  `keterangan` text NOT NULL,
+  `jumlah_pengeluaran` int(50) NOT NULL,
+  `id_metode_pemilihan` int(20) NOT NULL,
+  `tanggal_pengadaan` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `provinsi`
 --
 
@@ -749,29 +837,38 @@ CREATE TABLE `transaksi` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `unit_satuan_kerja`
+--
+
+CREATE TABLE `unit_satuan_kerja` (
+  `id_unit_satuan_kerja` int(20) NOT NULL,
+  `kode_unit_satuan_kerja` varchar(20) NOT NULL,
+  `nama_unit` varchar(200) NOT NULL,
+  `lokasi` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL DEFAULT '',
-  `alamat` varchar(255) NOT NULL DEFAULT '',
-  `email` varchar(255) DEFAULT NULL,
   `username` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   `id_role` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `modified_at` datetime DEFAULT NULL
+  `id_pegawai` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nama`, `alamat`, `email`, `username`, `password`, `id_role`, `created_at`, `modified_at`) VALUES
-(74, 'Administrator', '', '', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, NULL, NULL),
-(75, 'Mirna Lasty', '-', '', 'customerservice', '2995cc7d3abbc615a9203427f9b2cf33', 8, NULL, NULL),
-(76, 'nnb', 'kjnbm', 'mnhbvgnh@bvf.kjh', 'admin', '8a30ec6807f71bc69d096d8e4d501ade', 1, NULL, NULL);
+INSERT INTO `user` (`id_user`, `username`, `password`, `id_role`, `id_pegawai`) VALUES
+(74, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 0),
+(75, 'customerservice', '2995cc7d3abbc615a9203427f9b2cf33', 8, 0),
+(76, 'admin', '8a30ec6807f71bc69d096d8e4d501ade', 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -806,12 +903,48 @@ ALTER TABLE `guest_book`
   ADD KEY `FK_event` (`id_event`);
 
 --
+-- Indexes for table `jabatan`
+--
+ALTER TABLE `jabatan`
+  ADD PRIMARY KEY (`id_jabatan`);
+
+--
+-- Indexes for table `jenis_belanja`
+--
+ALTER TABLE `jenis_belanja`
+  ADD PRIMARY KEY (`id_jenis_belanja`);
+
+--
 -- Indexes for table `kabupaten`
 --
 ALTER TABLE `kabupaten`
   ADD PRIMARY KEY (`id`),
   ADD KEY `nama` (`nama_kabupaten`),
   ADD KEY `FK_kabupaten_propinsi` (`provinsi_id`);
+
+--
+-- Indexes for table `kegiatan`
+--
+ALTER TABLE `kegiatan`
+  ADD PRIMARY KEY (`id_kegiatan`);
+
+--
+-- Indexes for table `metode_pemilihan`
+--
+ALTER TABLE `metode_pemilihan`
+  ADD PRIMARY KEY (`id_metode_pemilihan`);
+
+--
+-- Indexes for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  ADD PRIMARY KEY (`id_pegawai`);
+
+--
+-- Indexes for table `pengadaan`
+--
+ALTER TABLE `pengadaan`
+  ADD PRIMARY KEY (`id_pengadaan`);
 
 --
 -- Indexes for table `provinsi`
@@ -840,6 +973,12 @@ ALTER TABLE `role_feature`
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
   ADD KEY `id_guest_book` (`id_guest_book`);
+
+--
+-- Indexes for table `unit_satuan_kerja`
+--
+ALTER TABLE `unit_satuan_kerja`
+  ADD PRIMARY KEY (`id_unit_satuan_kerja`);
 
 --
 -- Indexes for table `user`
@@ -873,6 +1012,36 @@ ALTER TABLE `file`
 ALTER TABLE `guest_book`
   MODIFY `id_guest_book` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `jabatan`
+--
+ALTER TABLE `jabatan`
+  MODIFY `id_jabatan` int(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `jenis_belanja`
+--
+ALTER TABLE `jenis_belanja`
+  MODIFY `id_jenis_belanja` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `kegiatan`
+--
+ALTER TABLE `kegiatan`
+  MODIFY `id_kegiatan` int(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `metode_pemilihan`
+--
+ALTER TABLE `metode_pemilihan`
+  MODIFY `id_metode_pemilihan` int(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  MODIFY `id_pegawai` int(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `pengadaan`
+--
+ALTER TABLE `pengadaan`
+  MODIFY `id_pengadaan` int(20) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
@@ -887,6 +1056,11 @@ ALTER TABLE `role_feature`
 --
 ALTER TABLE `transaksi`
   MODIFY `id_transaksi` int(100) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `unit_satuan_kerja`
+--
+ALTER TABLE `unit_satuan_kerja`
+  MODIFY `id_unit_satuan_kerja` int(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --
