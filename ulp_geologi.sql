@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2016 at 03:50 AM
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.5.30
+-- Generation Time: Nov 06, 2016 at 11:14 AM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.5.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -906,13 +906,15 @@ ALTER TABLE `guest_book`
 -- Indexes for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  ADD PRIMARY KEY (`id_jabatan`);
+  ADD PRIMARY KEY (`id_jabatan`),
+  ADD KEY `id_jabatan` (`id_jabatan`);
 
 --
 -- Indexes for table `jenis_belanja`
 --
 ALTER TABLE `jenis_belanja`
-  ADD PRIMARY KEY (`id_jenis_belanja`);
+  ADD PRIMARY KEY (`id_jenis_belanja`),
+  ADD KEY `id_jenis_belanja` (`id_jenis_belanja`);
 
 --
 -- Indexes for table `kabupaten`
@@ -926,25 +928,36 @@ ALTER TABLE `kabupaten`
 -- Indexes for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  ADD PRIMARY KEY (`id_kegiatan`);
+  ADD PRIMARY KEY (`id_kegiatan`),
+  ADD KEY `id_kegiatan` (`id_kegiatan`);
 
 --
 -- Indexes for table `metode_pemilihan`
 --
 ALTER TABLE `metode_pemilihan`
-  ADD PRIMARY KEY (`id_metode_pemilihan`);
+  ADD PRIMARY KEY (`id_metode_pemilihan`),
+  ADD KEY `id_metode_pemilihan` (`id_metode_pemilihan`);
 
 --
 -- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  ADD PRIMARY KEY (`id_pegawai`);
+  ADD PRIMARY KEY (`id_pegawai`),
+  ADD UNIQUE KEY `id_pegawai` (`id_pegawai`),
+  ADD KEY `id_unit_satuan_kerja` (`id_unit_satuan_kerja`),
+  ADD KEY `id_jabatan` (`id_jabatan`),
+  ADD KEY `id_pegawai_2` (`id_pegawai`),
+  ADD KEY `id_pegawai_3` (`id_pegawai`);
 
 --
 -- Indexes for table `pengadaan`
 --
 ALTER TABLE `pengadaan`
-  ADD PRIMARY KEY (`id_pengadaan`);
+  ADD PRIMARY KEY (`id_pengadaan`),
+  ADD KEY `id_unit_satuan_kerja` (`id_unit_satuan_kerja`),
+  ADD KEY `id_metode_pemilihan` (`id_metode_pemilihan`),
+  ADD KEY `id_kegiatan` (`id_kegiatan`),
+  ADD KEY `id_jenis_belanja` (`id_jenis_belanja`);
 
 --
 -- Indexes for table `provinsi`
@@ -978,14 +991,17 @@ ALTER TABLE `transaksi`
 -- Indexes for table `unit_satuan_kerja`
 --
 ALTER TABLE `unit_satuan_kerja`
-  ADD PRIMARY KEY (`id_unit_satuan_kerja`);
+  ADD PRIMARY KEY (`id_unit_satuan_kerja`),
+  ADD KEY `id_unit_satuan_kerja` (`id_unit_satuan_kerja`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
-  ADD KEY `FK_role` (`id_role`);
+  ADD KEY `FK_role` (`id_role`),
+  ADD KEY `id_pegawai` (`id_pegawai`),
+  ADD KEY `id_pegawai_2` (`id_pegawai`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1089,6 +1105,22 @@ ALTER TABLE `guest_book`
 --
 ALTER TABLE `kabupaten`
   ADD CONSTRAINT `FK_kabupaten_provinsi` FOREIGN KEY (`provinsi_id`) REFERENCES `provinsi` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  ADD CONSTRAINT `pegawai_ibfk_1` FOREIGN KEY (`id_unit_satuan_kerja`) REFERENCES `unit_satuan_kerja` (`id_unit_satuan_kerja`),
+  ADD CONSTRAINT `pegawai_ibfk_2` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan` (`id_jabatan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pengadaan`
+--
+ALTER TABLE `pengadaan`
+  ADD CONSTRAINT `pengadaan_ibfk_1` FOREIGN KEY (`id_metode_pemilihan`) REFERENCES `metode_pemilihan` (`id_metode_pemilihan`),
+  ADD CONSTRAINT `pengadaan_ibfk_2` FOREIGN KEY (`id_jenis_belanja`) REFERENCES `jenis_belanja` (`id_jenis_belanja`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pengadaan_ibfk_3` FOREIGN KEY (`id_kegiatan`) REFERENCES `kegiatan` (`id_kegiatan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pengadaan_ibfk_4` FOREIGN KEY (`id_unit_satuan_kerja`) REFERENCES `unit_satuan_kerja` (`id_unit_satuan_kerja`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `role_feature`
