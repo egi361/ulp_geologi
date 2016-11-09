@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Guest Book</title>
+        <title>ULP Geologi</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.4 -->
@@ -46,8 +46,7 @@
                 <div class="row templatemo_gallerygap">
                     <div class="col-md-3 col-sm-12">
                         <a href="<?= base_url() ?>">
-                            <img class="brand" src="<?= base_url() ?>theme/dist/img/logo.png" alt="">
-                            <h4><strong>MULTIGUNA CIPTASENTOSA</h4>
+                            <h4><strong>ULP Geologi</h4>
                         </a>
 
                     </div> <!-- /.row -->
@@ -60,6 +59,7 @@
     <div class="content homepage" id="menu-1">
         <div class="container">
             <div class="row">
+			<!--
                 <div class="hex col-sm-6 col-md-6 kanan">
                     <div>
                         <div class="hexagon hexagon2 gallery-item">
@@ -75,6 +75,7 @@
                         </div>
                     </div>
                 </div>
+			-->
                 <div class="hex col-sm-6 col-md-6">
                     <div>
                         <div class="hexagon hexagon2 gallery-item">
@@ -112,7 +113,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9 col-sm-12">
-        Copyright &copy; 2015 PT. MULTIGUNA CIPTASENTOSA.
+        Copyright &copy; 2016 ULP Geologi.
         </div>
             </div>        </div>
     </div>

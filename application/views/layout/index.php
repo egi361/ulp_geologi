@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Guest Book</title>
+        <title>ULP Geologi</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.4 -->
@@ -76,9 +76,8 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <!-- <div class="image"> -->
-                        <img src="<?= base_url() ?>theme/dist/img/logo.png" class="" id="logo-perusahaan">
                         <!-- </div> -->
-                        <h5 id="nama-perusahaan"><strong>PT. MULTIGUNA<br>CIPTASENTOSA</strong></h5>
+                        <h5 id="nama-perusahaan"><strong>Monitoring ULP Geologi</strong></h5>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" id="sidebar">
@@ -106,7 +105,7 @@
                 </div>
             </div><!-- /.content-wrapper -->
             <footer class="main-footer">
-                Copyright &copy; 2015 PT. MULTIGUNA CIPTASENTOSA.
+                Copyright &copy; 2016 ULP Geologi.
             </footer>
         </div>
         <script src="<?= base_url() ?>theme/dist/js/app.js"></script>
