@@ -19,8 +19,8 @@
                         <th>Event Name</th>
 						<th>Date Start</th>
 						<th>Date End</th>
-						<th>Place</th>
-						<th>PIC</th>
+						<!--<th>Place</th>-->
+						<!--<th>PIC</th>-->
                       </tr>
                     </thead>
                     <tbody>
@@ -41,7 +41,7 @@
 					  "info": true,
 					  "autoWidth": true,
 					  "fnRowCallback":function(Row,Data){
-									  $(Row).attr('id',Data[5]);
+									  $(Row).attr('id',Data[3]);
 									  return Row;
 					  },
 					  "ajax":{
