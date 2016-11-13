@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="halaman login aplikasi"./>
-<title>Guest Book - Administrator</title>
+<title>ULP Geologi - Administrator</title>
 <!-- Bootstrap 3.3.4 -->
 <link rel="stylesheet" href="<?php echo base_url();?>theme/bootstrap/css/bootstrap.min.css">
 <!-- Font Awesome -->
@@ -36,7 +36,7 @@
                         <div class="form-box" style="margin-top: 0;">
                         	<div class="form-top">
                         		<div class="form-top-left">
-                        			<h3>Login Aplikasi Guest Book</h3>
+                        			<h3>Login Monitoring ULP Geologi</h3>
                             		<p>Login as Administrator</p>
                         		</div>
                         		<div class="form-top-right">

@@ -24,6 +24,7 @@
                                       <input type="text" id="date_end" value="<?=$data->date_end?>" class="form-control" name="date_end" placeholder="Date End">
                                     </div>
                         </div>
+						<!--
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Place <span class="required">*</span></label>
                           <div class="col-sm-9">
@@ -37,6 +38,7 @@
                             <input type="text" value="<?=$data->pic?>" class="form-control" name="pic" placeholder="PIC">
                           </div>
                         </div>
+						-->
                     
                   </div><!-- /.box-body -->
           

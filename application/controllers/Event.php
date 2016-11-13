@@ -70,8 +70,8 @@ class Event extends CController {
 			$json_array[]=$result->event_name;
 			$json_array[]=$this->getDateMonth($result->date_start);
 			$json_array[]=$this->getDateMonth($result->date_end);
-			$json_array[]=$result->place;
-			$json_array[]=$result->pic;
+			//$json_array[]=$result->place;
+			//$json_array[]=$result->pic;
 			$json_array[]=$result->id_event;
 			
 			$output['aaData'][]=$json_array;

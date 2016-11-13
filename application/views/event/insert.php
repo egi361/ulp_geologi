@@ -19,7 +19,8 @@
                                       <input type="text" id="date_end" class="form-control" name="date_end" placeholder="Date End">
                                     </div>
                         </div>
-    					          <div class="form-group">
+						<!--
+    					<div class="form-group">
                           <label class="col-sm-2 control-label">Place <span class="required">*</span></label>
                           <div class="col-sm-9">
                             <input type="text" class="form-control" name="place" placeholder="Place">
@@ -32,6 +33,7 @@
                             <input type="text" class="form-control" name="pic" placeholder="PIC">
                           </div>
                         </div>
+						-->
 						<div class="form-group">
                                     <label class="col-sm-2 control-label">Event Description</label>
                                     <div class="col-sm-9">
