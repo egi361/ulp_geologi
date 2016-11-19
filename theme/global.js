@@ -13,6 +13,7 @@ var global = new function() {
             {
                 $(page).html(html);
                 $('#loading').fadeOut('slow');
+				$(document).trigger('controllerReady',[controller]);
             }
         });
     }
@@ -29,6 +30,7 @@ var global = new function() {
             {
                 $(page).html(html);
                 $('#loading').fadeOut('slow');
+				$(document).trigger('methodReady');
             }
         });
     }

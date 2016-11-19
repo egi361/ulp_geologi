@@ -152,7 +152,7 @@
 			$('#id_penyedia').select2({data:<?=$penyedia?>})
 			$('#id_swakelola').select2({data:<?=$swakelola?>})
 			$("#btn-cancel").click(function(){
-			document.location.hash='Pegawai';
+			document.location.hash='UsulanKegiatan';
 			})
 			$("#metode_kegiatan").change(function(){
 				if(this.value == 'penyedia'){

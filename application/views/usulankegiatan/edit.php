@@ -9,13 +9,6 @@
 	</div>
 
 	<div class="form-group">
-		<label for="tanggal_usulan" class="col-sm-2 control-label">Tanggal Usulan <span class="required">*</span></label>
-		<div class="col-sm-9">
-			<input type="text" value="<?=$data->tanggal_usulan?>" id="tanggal_usulan" class="form-control" name="tanggal_usulan" placeholder="Tanggal Usulan">
-		</div>
-	</div>
-
-	<div class="form-group">
 		<label for="nama_kegiatan" class="col-sm-2 control-label">Nama Kegiatan <span class="required">*</span></label>
 		<div class="col-sm-9">
 			<input type="text" value="<?=$data->nama_kegiatan?>" name="nama_kegiatan" class="form-control" id="nama_kegiatan" placeholder="Nama Kegiatan">
@@ -36,12 +29,6 @@
         </div>
     </div>
 	
-	<div class="form-group">
-		<label for="status_kegiatan" class="col-sm-2 control-label">Status Kegiatan <span class="required">*</span></label>
-		<div class="col-sm-9">
-			<input type="text" value="<?=$data->status_kegiatan?>" name="status_kegiatan" class="form-control" id="status_kegiatan" placeholder="Status Kegiatan">
-		</div>
-	</div>
 	<div class="form-group">
 		<label for="keterangan" class="col-sm-2 control-label">Keterangan <span class="required">*</span></label>
 		<div class="col-sm-9">

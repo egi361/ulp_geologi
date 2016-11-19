@@ -50,11 +50,11 @@ class UsulanKegiatan extends CController {
 	public function insertData(){
 		$data['kode_usulan_kegiatan'] = $this->input->post( 'kode_usulan_kegiatan' );
 		$data['id_unit_satuan_kerja'] = $this->session->userdata('id_unit_satuan_kerja');
-		$data['tanggal_usulan'] = $this->input->post( 'tanggal_usulan' );
+		// $data['tanggal_usulan'] = $this->input->post( 'tanggal_usulan' );
 		$data['nama_kegiatan'] = $this->input->post( 'nama_kegiatan' );
 		$data['pagu_anggaran'] = $this->input->post( 'pagu_anggaran' );
 		$data['hps'] = $this->input->post( 'hps' );
-		$data['status_kegiatan'] = $this->input->post( 'status_kegiatan' );
+		$data['status_kegiatan'] = 'belum disetujui';
 		$data['keterangan'] = $this->input->post( 'keterangan' );
 		$data['jenis_kegiatan'] = $this->input->post( 'jenis_kegiatan' );
 		$data['jenis_anggaran'] = $this->input->post( 'jenis_anggaran' );
