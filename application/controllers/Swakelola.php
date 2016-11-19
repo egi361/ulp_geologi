@@ -17,11 +17,10 @@ class Swakelola extends CController {
 		$output['aaData']=array();
 		foreach($data->result() as $result){
 			$json_array=array();
-
 			$json_array[]=$result->jenis_swakelola;
 			$json_array[]=$result->satuan_kerja;
+			$json_array[]=$result->id_swakelola;
 			$output['aaData'][]=$json_array;
-		
 		}
 		echo json_encode($output);
 	}
@@ -38,9 +37,10 @@ class Swakelola extends CController {
 	}
 
 	public function edit($id){
-		$unit=$this->SwakelolaModel->getById($id);
-		$data['data']=$unit;
-		$this->load->view('unit/edit',$data);
+		$swakelola = $this->SwakelolaModel->getById($id);
+
+		$data['data'] = $swakelola;
+		$this->load->view('swakelola/edit',$data);
 	}
 
 	public function editData($id){

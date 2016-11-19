@@ -57,8 +57,8 @@
                 }
             })
             $("#button-edit").click(function(){
-                    var id=$("#TableSwakelola .selected").attr('id')
-                    if(typeof id=='undefined'){
+                var id=$("#TableSwakelola .selected").attr('id')
+                if(typeof id=='undefined'){
                     alert('Please Select One Data to Edit')
                 }
                 else{
