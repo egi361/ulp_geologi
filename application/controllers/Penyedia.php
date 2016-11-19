@@ -7,7 +7,7 @@ class Penyedia extends CController {
 		$this->load->model( array( 'PenyediaModel' ) );
 		
 	}
-	
+
 	public function index(){
 		$this->load->view( 'penyedia/index' );
 	}	
@@ -18,9 +18,13 @@ class Penyedia extends CController {
 		$output['aaData'] = array();
 		foreach( $data->result() as $result ){
 			$json_array = array();
-			$json_array[] = $result->jenis_swakelola;
-			$json_array[] = $result->satuan_kerja;
-			$json_array[] = $result->id_swakelola;
+			$json_array[] = $result->nama_perusahaan;
+			$json_array[] = $result->no_siup;
+			$json_array[] = $result->no_telpon;
+			$json_array[] = $result->alamat;
+			$json_array[] = $result->email;
+			$json_array[] = $result->penanggung_jawab;
+			$json_array[] = $result->id_penyedia;
 			$output['aaData'][] = $json_array;
 		}
 		echo json_encode($output);
@@ -31,8 +35,12 @@ class Penyedia extends CController {
 	}
 
 	public function insertData(){
-		$data['jenis_swakelola'] = $this->input->post( 'jenis_swakelola' );
-		$data['satuan_kerja'] = $this->input->post( 'satuan_kerja' );
+		$data['nama_perusahaan'] = $this->input->post( 'nama_perusahaan' );
+		$data['no_siup'] = $this->input->post( 'no_siup' );
+		$data['no_telpon'] = $this->input->post( 'no_telepon' );
+		$data['alamat'] = $this->input->post( 'alamat' );
+		$data['email'] = $this->input->post( 'email' );
+		$data['penanggung_jawab'] = $this->input->post( 'penanggung_jawab' );
 		$this->PenyediaModel->simpan( $data );
 		echo 'Data Berhasil Disimpan.';
 	}
@@ -45,9 +53,13 @@ class Penyedia extends CController {
 	}
 
 	public function editData( $id ){
-		$data['jenis_swakelola'] = $this->input->post( 'jenis_swakelola' );
-		$data['satuan_kerja'] = $this->input->post( 'satuan_kerja' );
-		$this->PenyediaModel->update( $id,$data );
+		$data['nama_perusahaan'] = $this->input->post( 'nama_perusahaan' );
+		$data['no_siup'] = $this->input->post( 'no_siup' );
+		$data['no_telpon'] = $this->input->post( 'no_telepon' );
+		$data['alamat'] = $this->input->post( 'alamat' );
+		$data['email'] = $this->input->post( 'email' );
+		$data['penanggung_jawab'] = $this->input->post( 'penanggung_jawab' );
+		$this->PenyediaModel->update( $id, $data );
 		echo 'Data Berhasil Disimpan.';
 	}
 

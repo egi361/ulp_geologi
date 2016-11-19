@@ -15,7 +15,7 @@
                 <th>Nama Perusahaan</th>
                 <th>Nomor SIUP</th>
                 <th>Alamat</th>
-                <th>No. Telpon</th>
+                <th>Nomor Telepon</th>
                 <th>Email</th>
                 <th>Pananggung Jawab</th>
             </tr>
