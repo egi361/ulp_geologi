@@ -47,7 +47,6 @@ class Penyedia extends CController {
 
 	public function edit( $id ){
 		$penyedia = $this->PenyediaModel->getById( $id );
-
 		$data['data'] = $penyedia;
 		$this->load->view( 'penyedia/edit',$data );
 	}
@@ -65,6 +64,6 @@ class Penyedia extends CController {
 
 	function delete( $id ){
 		$this->PenyediaModel->hapus( $id );
-		$this->load->view( 'swakelola/delete' );
+		$this->load->view( 'Penyedia/delete' );
 	}
 }

@@ -38,7 +38,7 @@ $(document).ready(function(){
       "autoWidth": true,
       "ScrollX":"120",
       "fnRowCallback":function(Row,Data){
-                      $(Row).attr('id',Data[2]);
+                      $(Row).attr('id',Data[6]);
                       return Row;
       },
       "ajax":{
