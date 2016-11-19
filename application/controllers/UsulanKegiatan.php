@@ -38,13 +38,13 @@ class UsulanKegiatan extends CController {
 	}
 
 	public function insert(){
-		$data['id'] = $this->session->userdata('id');
-		$data['nama'] = $this->session->userdata('nama');
-		$data['role'] = $this->session->userdata('role');
-		$data['id_pegawai'] = $this->session->userdata('id_pegawai');
-		$data['id_unit_satuan_kerja'] = $this->session->userdata('id_unit_satuan_kerja');
+		// $data['id'] = $this->session->userdata('id');
+		// $data['nama'] = $this->session->userdata('nama');
+		// $data['role'] = $this->session->userdata('role');
+		// $data['id_pegawai'] = $this->session->userdata('id_pegawai');
+		// $data['id_unit_satuan_kerja'] = $this->session->userdata('id_unit_satuan_kerja');
 
-		$this->load->view( 'usulankegiatan/insert', $data );
+		$this->load->view( 'usulankegiatan/insert' );
 	}
 
 	public function insertData(){
@@ -71,7 +71,7 @@ class UsulanKegiatan extends CController {
 
 	public function editData( $id ){
 		$data['kode_usulan_kegiatan'] = $this->input->post( 'kode_usulan_kegiatan' );
-		$data['id_unit_satuan_kerja'] = $this->CI->session->userdata('id_unit_satuan_kerja');
+		$data['id_unit_satuan_kerja'] = $this->session->userdata('id_unit_satuan_kerja');
 		$data['tanggal_usulan'] = $this->input->post( 'tanggal_usulan' );
 		$data['nama_kegiatan'] = $this->input->post( 'nama_kegiatan' );
 		$data['pagu_anggaran'] = $this->input->post( 'pagu_anggaran' );

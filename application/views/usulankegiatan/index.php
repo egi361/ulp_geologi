@@ -20,6 +20,7 @@
                 <th>HPS</th>
                 <th>Status Kegiatan</th>
                 <th>Keterangan</th>
+                <th>Jenis Kegiatan</th>
                 <th>Jenis Anggaran</th>
                 <th>Jenis Belanja</th>
             </tr>
@@ -42,7 +43,7 @@ $(document).ready(function(){
       "autoWidth": true,
       "ScrollX":"120",
       "fnRowCallback":function(Row,Data){
-                      $(Row).attr('id',Data[10]);
+                      $(Row).attr('id',Data[11]);
                       return Row;
       },
       "ajax":{

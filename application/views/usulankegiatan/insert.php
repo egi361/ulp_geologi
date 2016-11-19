@@ -1,4 +1,3 @@
-
 <form class="form-horizontal" id="form-usulankegiatan" action="UsulanKegiatan/insertData" method="POST">
 	<div class="box-body">
 	
@@ -72,7 +71,9 @@
 		<div class="col-sm-9">
 			<select id="jenis_belanja" name="jenis_belanja" class="form-control" placeholder="Pilih Jenis Belanja">
 				<option value="Barang">Barang</option>
-				<option value="Non Barang">Non Barang</option>
+				<option value="Konstruksi">Konstruksi</option>
+				<option value="Jasa">Jasa</option>	
+				<option value="Jasa Lainnya">Jasa Lainnya</option>
 			</select>
 		</div>
 	</div>

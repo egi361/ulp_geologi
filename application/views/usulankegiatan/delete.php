@@ -1,5 +1,5 @@
 <script>
 $(document).ready(function(){
-	document.location.hash='Penyedia'
+	document.location.hash='UsulanKegiatan'
 })
 </script>
