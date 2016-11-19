@@ -16,9 +16,7 @@
             <table id="TableUser" class="table dataTable table-bordered table-striped table-condensed">
                 <thead>
                     <tr>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>Email</th>
+                        <th>Nama Pegawai</th>
                         <th>Username</th>
                         <!-- <th>Password</th> -->
                     </tr>
@@ -44,7 +42,7 @@
             "autoWidth": true,
             "Processing": true,
             "fnRowCallback": function(Row, Data) {
-                $(Row).attr('id', Data[5]);
+                $(Row).attr('id', Data[2]);
                 return Row;
             },
             "ajax": {

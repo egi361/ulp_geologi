@@ -1,0 +1,10 @@
+ERROR - 2016-11-19 05:30:24 --> Query error: Unknown column 'admin' in 'where clause' - Invalid query: 
+		select * from user u join pegawai p on p.id_pegawai = u.id_pegawai
+							 left join unit_satuan_kerja us on us.id_unit_satuan_kerja = p.id_unit_satuan_kerja
+		where username = admin && password = 21232f297a57a5a743894a0e4a801fc3
+	
+ERROR - 2016-11-19 05:33:56 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'outter join unit_satuan_kerja us on us.id_unit_satuan_kerja = p.id_unit_satuan_k' at line 2 - Invalid query: 
+		select * from user u join pegawai p on p.id_pegawai = u.id_pegawai
+							 outter join unit_satuan_kerja us on us.id_unit_satuan_kerja = p.id_unit_satuan_kerja
+		where username = 'admin' && password = '21232f297a57a5a743894a0e4a801fc3'
+	

@@ -1,28 +1,16 @@
 <form class="form-horizontal" id="form-user" action="User/insertData" method="POST">
     <div class="box-body">
         <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">Name <span class="required">*</span></label>
-            <div class="col-sm-9">
-                <input type="text" name="name"class="form-control" id="name" placeholder="Name">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="address" class="col-sm-2 control-label">Address</label>
-            <div class="col-sm-9">
-                <textarea  class="form-control" id="address" name="address"placeholder="Address"></textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="email" class="col-sm-2 control-label">email</label>
-            <div class="col-sm-9">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-            </div>
-        </div>
-        <div class="form-group">
             <label for="role_id" class="col-sm-2 control-label">Role Access</label>
             <div class="col-sm-9">
                 <select class="form-control" id="user_role" name="role_id" placeholder="Pilih Role"></select>
                 <input type="hidden" name="user_role_hidden" id="user_role_hidden" value=""/>
+            </div>
+        </div>
+		<div class="form-group">
+            <label for="id_pegawai" class="col-sm-2 control-label">Pegawai</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="id_pegawai" name="id_pegawai" placeholder="Pilih pegawai"></select>
             </div>
         </div>
         <div class="form-group">
@@ -56,6 +44,7 @@
     $(document).ready(function() {
         var data_select = <?php echo $model; ?>;
         $('#user_role').select2({data: data_select});
+		 $('#id_pegawai').select2({data: <?=$pegawai?>});
         $("#btn-submit").click(function() {
             if ($('#form-user').valid()) {
                 global.CRUD("#form-user");
@@ -74,9 +63,9 @@
 
         $("#form-user").validate({
             rules: {
-                name: "required",
 //                address: "required",
                 username: "required",
+				id_pegawai: "required",
                 password: {
                     required: true,
                     minlength: 6

@@ -24,9 +24,10 @@ class Auth {
             $session_data = array(
                 'id' => $cek->id_user,
                 'nama' => $cek->nama,
-				'role'=>$cek->id_role
+				'role'=>$cek->id_role,
+				'id_pegawai' => $cek->id_pegawai,
+				'id_unit_satuan_kerja' => $cek->id_unit_satuan_kerja,
             );
-            
             $this->CI->session->set_userdata($session_data);
             return true;}
 			else{
