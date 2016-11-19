@@ -81,29 +81,35 @@
 							<option value="swakelola">Swakelola </option>
 						</select>
 					  </div>
-					  <label for="pemilihan_penyedia" class="col-sm-3 control-label">Pemilihan Penyedia <span class="required">*</span></label>
-					  <div class="col-sm-3">
-						<select name="pemilihan_penyedia"class="form-control" id="pemilihan_penyedia">
-							<option value="lelang_umum">Lelang Umum </option>
-							<option value="seleksi_umum">Seleksi Umum </option>
-							<option value="lelang_terbatas">Lelang Terbatas </option>
-							<option value="penunjukan_langsung">Penunjukan Langsung </option>
-							<option value="pengadaan_langsung">Pengadaan Langsung </option>
-							<option value="kontes">Sayembara/Kontes </option>
-						</select>
+					  <div class="penyedia">
+						  <label for="pemilihan_penyedia" class="col-sm-3 control-label">Pemilihan Penyedia <span class="required">*</span></label>
+						  <div class="col-sm-3">
+							<select name="pemilihan_penyedia"class="form-control" id="pemilihan_penyedia">
+								<option value="lelang_umum">Lelang Umum </option>
+								<option value="seleksi_umum">Seleksi Umum </option>
+								<option value="lelang_terbatas">Lelang Terbatas </option>
+								<option value="penunjukan_langsung">Penunjukan Langsung </option>
+								<option value="pengadaan_langsung">Pengadaan Langsung </option>
+								<option value="kontes">Sayembara/Kontes </option>
+							</select>
+						  </div>
 					  </div>
 					</div>				
 
 					<div class="form-group">
-					  <label for="id_penyedia" class="col-sm-3 control-label">Penyedia <span class="required">*</span></label>
-					  <div class="col-sm-3">
-						<select name="id_penyedia"class="form-control" id="id_penyedia">
-						</select>
+					  <div class="penyedia">
+						  <label for="id_penyedia" class="col-sm-3 control-label">Penyedia <span class="required">*</span></label>
+						  <div class="col-sm-3">
+							<select name="id_penyedia"class="form-control" id="id_penyedia">
+							</select>
+						  </div>
 					  </div>
-					  <label for="id_swakelola" class="col-sm-3 control-label">Swakelola <span class="required">*</span></label>
-					  <div class="col-sm-3">
-						<select type="text" name="id_swakelola"class="form-control" id="id_swakelola">
-						</select>
+					  <div class="swakelola">
+						  <label for="id_swakelola" class="col-sm-3 control-label">Swakelola <span class="required">*</span></label>
+						  <div class="col-sm-3">
+							<select type="text" name="id_swakelola"class="form-control" id="id_swakelola">
+							</select>
+						  </div>
 					  </div>
 					</div>										
 					<div class="form-group">
@@ -126,6 +132,8 @@
 				</div>
 				 
                 </form>
+				<?php 
+				?>
 		<script>
 		$(document).ready(function(){
 			$('#tanggal_awal_pelaksanaan').datepicker({'format':'yyyy-mm-dd','language':'id'});
@@ -146,7 +154,24 @@
 			$("#btn-cancel").click(function(){
 			document.location.hash='Pegawai';
 			})
-
+			$("#metode_kegiatan").change(function(){
+				if(this.value == 'penyedia'){
+					$('.penyedia').show();
+					$('.swakelola').hide();
+				} else {
+					$('.penyedia').hide();
+					$('.swakelola').show();
+				}
+			});
+			$("#metode_kegiatan").each(function(){
+				if(this.value == 'penyedia'){
+					$('.penyedia').show();
+					$('.swakelola').hide();
+				} else {
+					$('.penyedia').hide();
+					$('.swakelola').show();
+				}
+			});
 			$("#form-setujui-usulan").validate({
 	          rules: {
 	              nilai_kontrak: {required:true,digits:true},

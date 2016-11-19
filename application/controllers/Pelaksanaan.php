@@ -9,7 +9,7 @@ class Pelaksanaan extends CController {
 	}
 	public function index(){
 		$this->load->view('pelaksanaan/index');
-	}	
+	}
 
 	public function get(){
 		$data=$this->PelaksanaanModel->get_usulan();
@@ -33,9 +33,38 @@ class Pelaksanaan extends CController {
 		}
 		echo json_encode($output);
 	}
+		
+	public function get_kegiatan($metode_kegiatan){
+		$data=$this->PelaksanaanModel->get_kegiatan($metode_kegiatan);
+		$this->output->set_header('Content-Type: application/json; charset=utf-8');
+		$output['aaData']=array();
+		foreach($data->result() as $result){
+			$json_array=array();
+			$json_array[]=$result->nama_unit;
+			$json_array[]=$result->nama_kegiatan;
+			$json_array[]=$result->pagu_anggaran;
+			$json_array[]=$result->hps;
+			$json_array[]=$result->nilai_kontrak;
+			$json_array[]=$result->tahun_anggaran;
+			if($metode_kegiatan == 'penyedia'){
+				$json_array[]=$result->nama_perusahaan;
+				$json_array[]=$result->pemilihan_penyedia;
+			} else {
+				$json_array[]=$result->satuan_kerja;
+			}
+			$json_array[]=$result->tanggal_awal_pelaksanaan;
+			$json_array[]=$result->tanggal_akhir_pelaksanaan;
+			$json_array[]=$result->jenis_kegiatan;
+			$json_array[]=$result->jenis_anggaran;
+			$json_array[]=$result->jenis_belanja;
+			$json_array[]=$result->id_pelaksanaan_kegiatan;
+			$output['aaData'][]=$json_array;
+		}
+		echo json_encode($output);
+	}
 
-	public function insert(){
-		$this->load->view('pelaksanaan/insert');
+	public function kegiatan($metode_kegiatan){
+		$this->load->view('pelaksanaan/kegiatan',array('metode_kegiatan'=>$metode_kegiatan));
 	}
 
 	public function insertData(){
@@ -63,8 +92,19 @@ class Pelaksanaan extends CController {
 	}
 
 	public function update_statusData($id){
-		$data['role_name']=$this->input->post('name');
-		$this->PelaksanaanModel->update($id,$data);
+		$data['status_kegiatan']='disetujui';
+		$this->PelaksanaanModel->update_status($id,$data);
+		$data = array();
+		$data['nilai_kontrak']=$this->input->post('nilai_kontrak');
+		$data['tahun_anggaran']=$this->input->post('tahun_anggaran');
+		$data['metode_kegiatan']=$this->input->post('metode_kegiatan');
+		$data['pemilihan_penyedia']=$this->input->post('pemilihan_penyedia');
+		$data['id_penyedia']=$this->input->post('id_penyedia');
+		$data['id_swakelola']=$this->input->post('id_swakelola');
+		$data['tanggal_awal_pelaksanaan']=$this->input->post('tanggal_awal_pelaksanaan');
+		$data['tanggal_akhir_pelaksanaan']=$this->input->post('tanggal_akhir_pelaksanaan');
+		$data['id_usulan_kegiatan']=$id;
+		$this->PelaksanaanModel->simpan($data);
 		echo 'Data Berhasil Disimpan.';
 	}
 
