@@ -28,3 +28,5 @@ ERROR - 2016-11-19 07:19:07 --> Severity: Notice --> Undefined property: stdClas
 ERROR - 2016-11-19 07:19:07 --> Severity: Notice --> Undefined property: stdClass::$email C:\xampp\htdocs\ulp_geologi\application\controllers\User.php 72
 ERROR - 2016-11-19 01:52:49 --> 404 Page Not Found: Unit_Satker/index
 ERROR - 2016-11-19 07:52:53 --> Severity: error --> Exception: Unable to locate the model you have specified: SwakelolaModel C:\xampp\htdocs\ulp_geologi\system\core\Loader.php 314
+ERROR - 2016-11-19 08:18:26 --> Severity: error --> Exception: C:\xampp\htdocs\ulp_geologi\application\models/SwakelolaModel.php exists, but doesn't declare class SwakelolaModel C:\xampp\htdocs\ulp_geologi\system\core\Loader.php 306
+ERROR - 2016-11-19 02:18:35 --> 404 Page Not Found: Unit_Satker/index
