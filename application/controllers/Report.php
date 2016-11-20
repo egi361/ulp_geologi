@@ -4,40 +4,32 @@ class Report extends CController {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(array('PelaksanaanModel','PenyediaModel','SwakelolaModel'));
+		$this->load->model(array('PelaksanaanModel','PenyediaModel','SwakelolaModel' ));
 		
 	}
 	public function index(){
-		$this->load->view('report/index');
+		$id_unit = $this->session->userdata('id_unit_satuan_kerja');
+		$data['id_unit_satuan_kerja'] =  $id_unit;
+		$this->load->view('report/index', $data);
 	}
 
 	public function get_report(){
-		
-		// $metode_kegiatan = 'swakelola';
-		$data=$this->PelaksanaanModel->get_kegiatan($metode_kegiatan);
+		$id_unit_satuan_kerja = $this->session->userdata( 'id_unit_satuan_kerja' );
+		$data=$this->PelaksanaanModel->get_kegiatan_report();
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
 		$output['aaData']=array();
 		foreach($data->result() as $result){
 			$json_array=array();
+			$json_array[]=$result->tahun_anggaran;
 			$json_array[]=$result->nama_unit;
 			$json_array[]=$result->nama_kegiatan;
+			$json_array[]= $result->metode_kegiatan;
 			$json_array[]=$result->pagu_anggaran;
 			$json_array[]=$result->hps;
-			$json_array[]=$result->nilai_kontrak;
-			$json_array[]=$result->total_anggaran;
-			$json_array[]=$result->tahun_anggaran;
-			if($metode_kegiatan == 'penyedia'){
-				$json_array[]=$result->nama_perusahaan;
-				$json_array[]=$result->pemilihan_penyedia;
-			} else {
-				$json_array[]=$result->satuan_kerja;
-			}
-			$json_array[]=$result->tanggal_awal_pelaksanaan;
-			$json_array[]=$result->tanggal_akhir_pelaksanaan;
-			$json_array[]=$result->jenis_kegiatan;
-			$json_array[]=$result->jenis_anggaran;
-			$json_array[]=$result->jenis_belanja;
-			$json_array[]=$result->id_pelaksanaan_kegiatan;
+			$json_array[]= (( $result->jumlah_anggaran == '' ) ? ( 0 /100 )*$result->nilai_kontrak : ( $result->jumlah_anggaran / 100 ) * $result->nilai_kontrak ) . " %";
+			$json_array[]= ($result->nilai_kontrak)-($result->jumlah_anggaran);
+			$json_array[]= "-";
+			$json_array[]= $result->id_pelaksanaan_kegiatan;
 			$output['aaData'][]=$json_array;
 		}
 		echo json_encode($output);
