@@ -13,7 +13,12 @@ class UsulanKegiatanModel extends CI_Model{
 	}
 
 	function get(){
-		return $this->db->get($this->nama_tabel);
+		$id_unit = $this->session->userdata('role') == 11 ? $this->session->userdata('id_unit_satuan_kerja') : "%%";
+		return $this->db->query("
+			select * from usulan_kegiatan uk
+						  left join unit_satuan_kerja usk on usk.id_unit_satuan_kerja = uk.id_unit_satuan_kerja
+			where uk.id_unit_satuan_kerja like '{$id_unit}'
+		");
 	}
 
 	function update($id,$role){
