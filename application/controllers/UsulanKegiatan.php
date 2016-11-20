@@ -17,10 +17,9 @@ class UsulanKegiatan extends CController {
 		$this->output->set_header( 'Content-Type: application/json; charset=utf-8' );
 		$output['aaData'] = array();
 		foreach( $data->result() as $result ){
-			$satuan_kerja = $this->UnitModel->getById( $result->id_unit_satuan_kerja );
 			$json_array = array();
 			$json_array[] = $result->kode_usulan_kegiatan;
-			$json_array[] = $satuan_kerja->nama_unit;
+			$json_array[] = $result->nama_unit;
 			$json_array[] = $result->tanggal_usulan;
 			$json_array[] = $result->nama_kegiatan;
 			$json_array[] = $result->pagu_anggaran;

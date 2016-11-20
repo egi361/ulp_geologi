@@ -3,13 +3,13 @@
         <div class="box-header with-border">
             <button class="btn pull-right btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-caret-down"></i></button>    
             <?php
-			if($this->session->userdata('role') != 12){
+			if($this->session->userdata('role') == 11){
 			?>
 			<a href="#UsulanKegiatan/insert"class="btn btn-primary btn-sm" style="margin-right: 5px;"><i class="fa fa-plus-circle"></i> Add</a>
             <a id="button-edit"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-pencil"></i> Update</a> 
             <a id="button-delete"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-trash"></i> Delete</a>
 			<?php
-			} else {
+			} else if($this->session->userdata('role') == 12) {
 			?>
 			<a id="button-approve"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-pencil"></i> Setujui</a>
 			<a id="button-denied"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-pencil"></i> Batalkan</a>				

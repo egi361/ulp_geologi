@@ -1,22 +1,29 @@
 <?php
 class PelaksanaanModel extends CI_Model{
+
 	private $nama_tabel='usulan_kegiatan';
 	private $primary='id_usulan_kegiatan';
 	public function __construct(){
 	parent::__construct();
 	}
+	
 	function simpan($role){
 		$this->db->insert('pelaksanaan_kegiatan',$role);
 	}
+
 	function get_kegiatan($metode_kegiatan){
+		$id_unit = $this->session->userdata('role') == 11 ? $this->session->userdata('id_unit_satuan_kerja') : "%%";
 		return $this->db->query("
-			select *,sum(pkn.jumlah_anggaran) as total_anggaran from usulan_kegiatan uk left join unit_satuan_kerja us on us.id_unit_satuan_kerja = uk.id_unit_satuan_kerja
-											 left join pelaksanaan_kegiatan pk on pk.id_usulan_kegiatan = uk.id_usulan_kegiatan
-											 left join penyedia p on p.id_penyedia = pk.id_penyedia
-											 left join swakelola s on s.id_swakelola = pk.id_swakelola
-											 left join progress_keuangan pkn on pkn.id_pelaksanaan_kegiatan = pk.id_pelaksanaan_kegiatan
-			where pk.metode_kegiatan = '{$metode_kegiatan}'
-			group by pkn.id_pelaksanaan_kegiatan
+			select *,sum(pkn.jumlah_anggaran) as total_anggaran, pk.id_pelaksanaan_kegiatan
+			from pelaksanaan_kegiatan pk 
+				left join usulan_kegiatan uk on pk.id_usulan_kegiatan = uk.id_usulan_kegiatan
+				left join unit_satuan_kerja us on us.id_unit_satuan_kerja = uk.id_unit_satuan_kerja
+				left join penyedia p on p.id_penyedia = pk.id_penyedia
+				left join swakelola s on s.id_swakelola = pk.id_swakelola
+				left join progress_keuangan pkn on pkn.id_pelaksanaan_kegiatan = pk.id_pelaksanaan_kegiatan
+			where pk.metode_kegiatan = '{$metode_kegiatan}' and uk.id_unit_satuan_kerja like '{$id_unit}'
+			group by pk.id_pelaksanaan_kegiatan
+
 		");
 	}
 
