@@ -12,7 +12,7 @@ function get(){
 return $this->db->query("
 	select * from pegawai p 
 	join jabatan j on j.id_jabatan = p.id_jabatan
-	join unit_satuan_kerja u on u.id_unit_satuan_kerja = p.id_unit_satuan_kerja
+	left join unit_satuan_kerja u on u.id_unit_satuan_kerja = p.id_unit_satuan_kerja
 ");
 }
 function get_jabatan(){

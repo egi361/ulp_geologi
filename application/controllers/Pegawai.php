@@ -33,9 +33,11 @@ class Pegawai extends CController {
 	public function insert(){
 		$unit = $this->UnitModel->get();
 		$data_unit = array();
+		$data_unit[] = array('id'=>'','text'=>'');
 		foreach($unit->result() as $satuan){
 			$data_unit[] = array('id'=>$satuan->id_unit_satuan_kerja,'text'=>$satuan->nama_unit);
 		}
+		
 		$data_jabatan = array();
 		$jabatan = $this->PegawaiModel->get_jabatan();
 		foreach($jabatan->result() as $d_jabatan){
@@ -63,9 +65,11 @@ class Pegawai extends CController {
 		$data['data']=$unit;
 		$unit = $this->UnitModel->get();
 		$data_unit = array();
+		$data_unit[] = array('id'=>'','text'=>'');
 		foreach($unit->result() as $satuan){
 			$data_unit[] = array('id'=>$satuan->id_unit_satuan_kerja,'text'=>$satuan->nama_unit);
 		}
+		
 		$data_jabatan = array();
 		$jabatan = $this->PegawaiModel->get_jabatan();
 		foreach($jabatan->result() as $d_jabatan){

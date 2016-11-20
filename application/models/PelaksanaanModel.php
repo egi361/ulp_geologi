@@ -36,6 +36,9 @@ $this->db->update($this->nama_tabel,$role);
 function update_keuangan($role){
 $this->db->insert('progress_keuangan',$role);
 }
+function update_fisik($role){
+$this->db->insert('progress_fisik',$role);
+}
 function getById($id){
 $data=$this->db->query("
 	select * from usulan_kegiatan uk left join unit_satuan_kerja us on us.id_unit_satuan_kerja = uk.id_unit_satuan_kerja
@@ -76,6 +79,28 @@ switch($filter){
 		");
 		break;
 }
+
+return $data;
+}
+function getCurrentProgressFisik($id){
+
+		$data=$this->db->query("
+			select max( persentase_progress ) as current_progress
+			from progress_fisik
+			where id_pelaksanaan_kegiatan = '{$id}'
+			group by id_pelaksanaan_kegiatan
+		");
+
+return $data;
+}
+function getCurrentProgressKeuangan($id){
+
+		$data=$this->db->query("
+			select sum(jumlah_anggaran) as total_anggaran
+			from progress_keuangan 
+			where id_pelaksanaan_kegiatan = '{$id}'
+			group by id_pelaksanaan_kegiatan
+		");
 
 return $data;
 }

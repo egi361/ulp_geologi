@@ -112,6 +112,10 @@ class Pelaksanaan extends CController {
 
 		$role=$this->PelaksanaanModel->getByIdPelaksanaan($id);
 		$data['data']=$role;
+		$current_fisik = $this->PelaksanaanModel->getCurrentProgressFisik($id);
+		$data['current_progress_fisik'] =  !empty($current_fisik->row()->current_progress) ? $current_fisik->row()->current_progress : 0;
+		$current_keuangan = $this->PelaksanaanModel->getCurrentProgressKeuangan($id);
+		$data['current_progress_keuangan'] =  !empty($current_keuangan->row()->total_anggaran) ? $current_keuangan->row()->total_anggaran : 0;
 		$this->load->view('pelaksanaan/update_keuangan',$data);
 	}
 	public function update_keuanganData($id){
@@ -119,6 +123,10 @@ class Pelaksanaan extends CController {
 		$data['jumlah_anggaran']=$this->input->post('jumlah_anggaran');
 		$data['tanggal_progress_keuangan']=$this->input->post('tanggal_progress_keuangan');
 		$this->PelaksanaanModel->update_keuangan($data);
+		$data_fisik['id_pelaksanaan_kegiatan']=$id;
+		$data_fisik['tanggal_progress_fisik']=$this->input->post('tanggal_progress_keuangan');
+		$data_fisik['persentase_progress']=$this->input->post('persentase_progress');
+		$this->PelaksanaanModel->update_fisik($data_fisik);
 		echo 'Progress Keuangan telah Berhasil Di Update';
 	}
 

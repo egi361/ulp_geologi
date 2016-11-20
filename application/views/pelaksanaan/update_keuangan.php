@@ -53,10 +53,30 @@
 						</div>
 					</section>
 					<div class="form-group">
+					  <label for="sisa_anggaran" class="col-sm-3 control-label">Sisa Anggaran dari Nilai Kontrak<span class="required">*</span></label>
+					  <div class="col-sm-3">
+						<input type="text" disabled='disabled' value="<?=$data->nilai_kontrak - $current_progress_keuangan?>"name="sisa_anggaran"class="form-control" id="sisa_anggaran">
+					  </div>
+					</div>
+					<div class="form-group">
 					  <label for="jumlah_anggaran" class="col-sm-3 control-label">Anggaran<span class="required">*</span></label>
-					  <div class="col-sm-9">
+					  <div class="col-sm-3">
 						<input type="text" name="jumlah_anggaran"class="form-control" id="jumlah_anggaran">
 					  </div>
+					</div>
+					<div class="form-group">
+					  <label for="current_progress" class="col-sm-3 control-label">Progress Fisik Saat Ini<span class="required">*</span></label>
+					  <div class="col-sm-3">
+						<input type="text" disabled="disabled" name="current_progress"class="form-control" value="<?=$current_progress_fisik?>"id="current_progress">
+					  </div>
+					   <label for="persentase_progress" class="col-sm-2 control-label">Percent<span class="required"> ( % )</span></label>
+					</div>
+					<div class="form-group">
+					  <label for="persentase_progress" class="col-sm-3 control-label">Progress Fisik<span class="required">*</span></label>
+					  <div class="col-sm-3">
+						<input type="text" name="persentase_progress"class="form-control" value="<?=$current_progress_fisik?>"id="persentase_progress">
+					  </div>
+					   <label for="persentase_progress" class="col-sm-2 control-label">Percent<span class="required"> ( % )</span></label>
 					</div>
 					<div class="form-group">
 					  <label for="tanggal_progress_keuangan" class="col-sm-3 control-label">Tanggal <span class="required">*</span></label>
@@ -78,6 +98,17 @@
 				?>
 		<script>
 		$(document).ready(function(){
+			$.validator.addMethod("greaterThan", function (value, element, param) {
+			var $min = $(param);
+
+			if (this.settings.onfocusout) {
+				$min.off(".validate-greaterThan").on("blur.validate-greaterThan", function () {
+					$(element).valid();
+				});
+			}
+
+			return parseInt(value) > parseInt($min.val());
+		}, "Max must be greater than min");
 			$('#tanggal_progress_keuangan').datepicker({'format':'yyyy-mm-dd','language':'id'});
 			$("#btn-submit").click(function(){
 				if($('#form-update-keuangan').valid()){
@@ -95,8 +126,9 @@
 			})
 			$("#form-update-keuangan").validate({
 	          rules: {
-	              jumlah_anggaran: {required:true,digits:true},
+	              jumlah_anggaran: {required:true,digits:true,max:parseInt($('#sisa_anggaran').val())},
 				  tanggal_progress_keuangan:'required',
+				  persentase_progress : {required:true,digits:true,min:parseInt($('#current_progress').val()),max:100},
 	          },
 	          errorClass: "block-error error",
 	          errorElement: "div",

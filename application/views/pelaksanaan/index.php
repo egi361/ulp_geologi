@@ -6,7 +6,6 @@
 					<a href="#Pelaksanaan/kegiatan/swakelola" class="kegiatan-swakelola btn btn-primary btn-sm" style="margin-right: 5px;"> Kegiatan Swakelola</a>
 					<a href="#Pelaksanaan/kegiatan/penyedia" class="kegiatan-penyedia btn btn-primary btn-sm" style="margin-right: 5px;"> Kegiatan Penyedia</a>
 					<a id="button-update-keuangan"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-pencil"></i> Update Progress Keuangan</a>	
-					<a id="button-update-fisik"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-pencil"></i> Update Progress Fisik</a>
 					<a id="button-view-progress"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-eye"></i> Lihat Progress Per-Bulan</a>
 					<a id="button-view-progress-tahun"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-eye"></i> Lihat Progress Per-Tahun</a>
 				</div><!-- /.box-header -->

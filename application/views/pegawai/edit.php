@@ -75,7 +75,6 @@
 			$("#form-pegawai").validate({
 	          rules: {
 	              nama: "required",
-				  id_unit_satuan_kerja : 'required'
 	          },
 	          errorClass: "block-error error",
 	          errorElement: "div",
