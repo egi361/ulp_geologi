@@ -33,18 +33,49 @@ class Pelaksanaan extends CController {
 		echo json_encode($output);
 	}
 	
+	public function get_laporan_unit(){
+	
+		$unit = $this->PelaksanaanModel->getUnit();
+		$data_laporan = array();
+		$output['aaData']=array();
+		foreach($unit->result() as $result_unit){
+			$json_array=array();
+			$json_array[] = $result_unit->kode_unit_satuan_kerja;
+			$json_array[] = $result_unit->nama_unit;
+			$json_array[] = $result_unit->total_pagu_anggaran;
+			$pelaksanaan = $this->PelaksanaanModel->getPelaksanaanByUnit($result_unit->id_unit_satuan_kerja);
+			$total_keuangan = 0;
+			$total_kontrak = 0;
+			foreach($pelaksanaan->result() as $result_pelaksanaan){
+				$current_keuangan = $this->PelaksanaanModel->getCurrentProgressKeuangan($result_pelaksanaan->id_pelaksanaan_kegiatan);
+				$total_kontrak += $result_pelaksanaan->nilai_kontrak;
+				$total_keuangan += !empty($current_keuangan->row()->total_anggaran) ? $current_keuangan->row()->total_anggaran : 0;
+			}
+			$json_array[] = $total_kontrak != 0 ?  $total_kontrak : '';
+			$json_array[] = $total_keuangan != 0 ? $total_keuangan : '';
+			$json_array[] = $result_unit->id_unit_satuan_kerja ;
+			
+			$output['aaData'][]=$json_array;
+		}
+		echo json_encode($output);
+		
+	}
+	
 	public function get_kegiatan($metode_kegiatan){
 		$data=$this->PelaksanaanModel->get_kegiatan($metode_kegiatan);
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
 		$output['aaData']=array();
 		foreach($data->result() as $result){
+			$current_keuangan = $this->PelaksanaanModel->getCurrentProgressKeuangan($result->id_pelaksanaan_kegiatan);
+			$current_fisik = $this->PelaksanaanModel->getCurrentProgressFisik($result->id_pelaksanaan_kegiatan);
 			$json_array=array();
 			$json_array[]=$result->nama_unit;
 			$json_array[]=$result->nama_kegiatan;
 			$json_array[]=$result->pagu_anggaran;
 			$json_array[]=$result->hps;
 			$json_array[]=$result->nilai_kontrak;
-			$json_array[]=$result->total_anggaran;
+			$json_array[]=!empty($current_keuangan->row()->total_anggaran) ? $current_keuangan->row()->total_anggaran : 0;
+			$json_array[]=!empty($current_fisik->row()->current_progress) ? $current_fisik->row()->current_progress.' %' : 0;
 			$json_array[]=$result->tahun_anggaran;
 			if($metode_kegiatan == 'penyedia'){
 				$json_array[]=$result->nama_perusahaan;
@@ -64,6 +95,7 @@ class Pelaksanaan extends CController {
 	}
 
 	public function kegiatan($metode_kegiatan){
+		
 		$this->load->view('pelaksanaan/kegiatan',array('metode_kegiatan'=>$metode_kegiatan));
 	}
 
