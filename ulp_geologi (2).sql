@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2016 at 01:40 AM
+-- Generation Time: Nov 20, 2016 at 02:51 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -64,12 +64,14 @@ CREATE TABLE `feature` (
 
 INSERT INTO `feature` (`id_feature`, `feature_name`, `controller`, `icon`) VALUES
 (1, 'User', 'User', '<i class="fa fa-user"></i>'),
-(3, 'Kegiatan', 'Event', '<i class="fa fa-calendar"></i>'),
-(6, 'Role', 'Role', '<i class="fa fa-users"></i>'),
 (7, 'Feature', 'Feature', '<i class="fa fa-gear"></i>'),
-(8, 'Unit Satuan Kerja', 'Unit_Satker', ''),
+(8, 'Unit Satuan Kerja', 'Unit', ''),
 (10, 'Swakelola', 'Swakelola', ''),
-(11, 'Penyedia', 'Penyedia', '');
+(11, 'Penyedia', 'Penyedia', ''),
+(12, 'Pegawai', 'Pegawai', ''),
+(13, 'Usulan Kegiatan', 'UsulanKegiatan', ''),
+(14, 'Pelaksanaan Kegiatan', 'Pelaksanaan', ''),
+(17, 'Role', 'Role', '');
 
 -- --------------------------------------------------------
 
@@ -131,6 +133,15 @@ CREATE TABLE `jabatan` (
   `kode_jabatan` varchar(20) NOT NULL,
   `nama_jabatan` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jabatan`
+--
+
+INSERT INTO `jabatan` (`id_jabatan`, `kode_jabatan`, `nama_jabatan`) VALUES
+(1, 'ppk', 'Pejabat Pembuat Komitmen'),
+(2, 'staff', 'Staff'),
+(3, 'KPA', 'Kuasa Pembuat Anggaran');
 
 -- --------------------------------------------------------
 
@@ -669,13 +680,21 @@ CREATE TABLE `metode_pemilihan` (
 CREATE TABLE `pegawai` (
   `id_pegawai` int(20) NOT NULL,
   `nama_pegawai` varchar(50) NOT NULL,
-  `kode_pegawai` varchar(20) NOT NULL,
-  `alamat` varchar(200) NOT NULL,
-  `pendidikan` varchar(100) NOT NULL,
+  `kode_pegawai` varchar(20) DEFAULT NULL,
+  `alamat` varchar(200) DEFAULT NULL,
+  `pendidikan` varchar(100) DEFAULT NULL,
   `jenis_kelamin` varchar(50) NOT NULL,
   `id_jabatan` int(20) NOT NULL,
   `id_unit_satuan_kerja` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pegawai`
+--
+
+INSERT INTO `pegawai` (`id_pegawai`, `nama_pegawai`, `kode_pegawai`, `alamat`, `pendidikan`, `jenis_kelamin`, `id_jabatan`, `id_unit_satuan_kerja`) VALUES
+(2, 'egi', NULL, 'aksdf', 's1', 'laki-laki', 2, 3),
+(3, 'willi', NULL, 'cikapundung', 's1', 'perempuan', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -696,6 +715,15 @@ CREATE TABLE `pelaksanaan_kegiatan` (
   `tanggal_akhir_pelaksanaan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pelaksanaan_kegiatan`
+--
+
+INSERT INTO `pelaksanaan_kegiatan` (`id_pelaksanaan_kegiatan`, `id_usulan_kegiatan`, `tahun_anggaran`, `metode_kegiatan`, `pemilihan_penyedia`, `id_penyedia`, `id_swakelola`, `nilai_kontrak`, `tanggal_awal_pelaksanaan`, `tanggal_akhir_pelaksanaan`) VALUES
+(1, 1, 2012, 'swakelola', 'lelang_terbatas', 1, 1, 2000000, '2016-11-29', '2016-12-01'),
+(2, 2, 2016, 'penyedia', 'lelang_umum', 1, 1, 13000000, '2016-11-28', '2016-11-29'),
+(3, 1, 2018, 'penyedia', 'lelang_umum', 1, 1, 12000, '2016-11-29', '2016-12-01');
+
 -- --------------------------------------------------------
 
 --
@@ -711,6 +739,14 @@ CREATE TABLE `penyedia` (
   `email` varchar(200) NOT NULL,
   `penanggung_jawab` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penyedia`
+--
+
+INSERT INTO `penyedia` (`id_penyedia`, `nama_perusahaan`, `no_siup`, `no_telpon`, `alamat`, `email`, `penanggung_jawab`) VALUES
+(1, 'maju mundur', 'asdfasdfasdf', '23423423423424', 'asdfasdfasdfadsf', 'asdfasdf@sdfsd.sdf', 'asdfasdf'),
+(2, 'kiri kanan', 'asdfasdfasdf', '234234234', 'aksdhfkajsdhfkasdf', 'asdkfjhas@sdf.sdf', 'laksdjflkajsdlfkjadsf');
 
 -- --------------------------------------------------------
 
@@ -737,6 +773,23 @@ CREATE TABLE `progress_keuangan` (
   `tanggal_progress_keuangan` date NOT NULL,
   `jumlah_anggaran` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `progress_keuangan`
+--
+
+INSERT INTO `progress_keuangan` (`id_progress_keuangan`, `id_pelaksanaan_kegiatan`, `tanggal_progress_keuangan`, `jumlah_anggaran`) VALUES
+(1, 1, '2016-12-01', 12000000),
+(2, 1, '2016-12-01', 234234),
+(3, 1, '2016-12-02', 98798798),
+(4, 1, '2016-12-08', 987987987),
+(5, 1, '2016-12-28', 8797898798),
+(6, 1, '2016-12-30', 98798798798),
+(7, 1, '2017-01-11', 876876876),
+(8, 1, '2017-02-10', 234234),
+(9, 1, '2017-05-24', 234234),
+(10, 1, '2017-09-21', 234234),
+(11, 1, '2017-12-26', 234234);
 
 -- --------------------------------------------------------
 
@@ -805,11 +858,9 @@ CREATE TABLE `role` (
 
 INSERT INTO `role` (`id_role`, `role_name`) VALUES
 (1, 'admin'),
-(2, 'operator'),
-(3, 'opt'),
-(7, 'marketing'),
-(8, 'CS'),
-(9, 'mnnm');
+(10, 'Pejabat Pembuat Keputusan ( PPK )'),
+(11, 'Staff'),
+(12, 'Kuasa Pembuat Anggaran');
 
 -- --------------------------------------------------------
 
@@ -830,11 +881,19 @@ CREATE TABLE `role_feature` (
 INSERT INTO `role_feature` (`id_role_feature`, `id_role`, `id_feature`) VALUES
 (1, 1, 7),
 (3, 1, 1),
-(6, 1, 6),
-(7, 1, 3),
 (8, 1, 8),
 (10, 1, 10),
-(11, 1, 11);
+(11, 1, 11),
+(12, 1, 12),
+(13, 1, 13),
+(14, 1, 14),
+(15, 11, 13),
+(16, 11, 14),
+(19, 10, 13),
+(20, 10, 14),
+(21, 12, 13),
+(22, 12, 14),
+(23, 1, 17);
 
 -- --------------------------------------------------------
 
@@ -847,6 +906,15 @@ CREATE TABLE `swakelola` (
   `jenis_swakelola` varchar(100) NOT NULL,
   `satuan_kerja` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `swakelola`
+--
+
+INSERT INTO `swakelola` (`id_swakelola`, `jenis_swakelola`, `satuan_kerja`) VALUES
+(1, 'Instansi Lain', 'Badan Gemuk'),
+(2, 'Instansi Lain', 'Badan Kurus'),
+(3, 'Instansi Penanggung Jawab Anggaran', 'Badan Kerempeng');
 
 -- --------------------------------------------------------
 
@@ -876,6 +944,14 @@ CREATE TABLE `unit_satuan_kerja` (
   `lokasi` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `unit_satuan_kerja`
+--
+
+INSERT INTO `unit_satuan_kerja` (`id_unit_satuan_kerja`, `kode_unit_satuan_kerja`, `nama_unit`, `lokasi`) VALUES
+(2, 'asdf', 'asdf', ''),
+(3, 'sdf', 'sdf', '');
+
 -- --------------------------------------------------------
 
 --
@@ -889,17 +965,20 @@ CREATE TABLE `user` (
   `id_role` int(11) DEFAULT NULL,
   `nama` varchar(200) NOT NULL,
   `alamat` varchar(500) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `id_pegawai` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `password`, `id_role`, `nama`, `alamat`, `email`) VALUES
-(74, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, '', '', ''),
-(75, 'customerservice', '2995cc7d3abbc615a9203427f9b2cf33', 8, '', '', ''),
-(76, 'admin', '8a30ec6807f71bc69d096d8e4d501ade', 1, '', '', '');
+INSERT INTO `user` (`id_user`, `username`, `password`, `id_role`, `nama`, `alamat`, `email`, `id_pegawai`) VALUES
+(74, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, '', '', '', 0),
+(76, 'admin', '8a30ec6807f71bc69d096d8e4d501ade', 1, '', '', '', 0),
+(77, 'egi', '6007485776c1af3d2f910d479c295240', 1, '', '', '', 0),
+(78, 'egikasep', '6007485776c1af3d2f910d479c295240', 11, '', '', '', 2),
+(79, 'willi', '3a7b7ec4874b4960b1eedcf44cd238f8', 12, '', '', '', 3);
 
 -- --------------------------------------------------------
 
@@ -909,9 +988,9 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `id_role`, `nama`, `alama
 
 CREATE TABLE `usulan_kegiatan` (
   `id_usulan_kegiatan` int(15) NOT NULL,
-  `jode_usulan_kegiatan` varchar(15) NOT NULL,
+  `kode_usulan_kegiatan` varchar(15) NOT NULL,
   `id_unit_satuan_kerja` int(15) NOT NULL,
-  `tanggal_usulan` date NOT NULL,
+  `tanggal_usulan` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `nama_kegiatan` varchar(200) NOT NULL,
   `pagu_anggaran` double NOT NULL,
   `hps` double NOT NULL,
@@ -921,6 +1000,14 @@ CREATE TABLE `usulan_kegiatan` (
   `jenis_anggaran` varchar(200) NOT NULL,
   `jenis_belanja` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `usulan_kegiatan`
+--
+
+INSERT INTO `usulan_kegiatan` (`id_usulan_kegiatan`, `kode_usulan_kegiatan`, `id_unit_satuan_kerja`, `tanggal_usulan`, `nama_kegiatan`, `pagu_anggaran`, `hps`, `status_kegiatan`, `keterangan`, `jenis_kegiatan`, `jenis_anggaran`, `jenis_belanja`) VALUES
+(1, 'egi kasep', 2, '2016-11-19 07:43:24', 'membangun rumah', 12000000, 11000000, 'disetujui', 'ini adalah keterangan', 'prioritas', 'APBN', 'Konstruksi'),
+(2, 'aaa', 3, '2016-11-19 13:17:48', 'membangun rumah tangga', 12000000, 11000000, 'disetujui', 'asdf', 'Prioritas', 'APBN', 'Barang');
 
 --
 -- Indexes for dumped tables
@@ -1070,7 +1157,7 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `feature`
 --
 ALTER TABLE `feature`
-  MODIFY `id_feature` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_feature` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `file`
 --
@@ -1085,7 +1172,7 @@ ALTER TABLE `guest_book`
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jabatan` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `metode_pemilihan`
 --
@@ -1095,17 +1182,17 @@ ALTER TABLE `metode_pemilihan`
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pegawai` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `pelaksanaan_kegiatan`
 --
 ALTER TABLE `pelaksanaan_kegiatan`
-  MODIFY `id_pelaksanaan_kegiatan` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelaksanaan_kegiatan` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `penyedia`
 --
 ALTER TABLE `penyedia`
-  MODIFY `id_penyedia` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_penyedia` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `progress_fisik`
 --
@@ -1115,22 +1202,22 @@ ALTER TABLE `progress_fisik`
 -- AUTO_INCREMENT for table `progress_keuangan`
 --
 ALTER TABLE `progress_keuangan`
-  MODIFY `id_progress_keuangan` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_progress_keuangan` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `role_feature`
 --
 ALTER TABLE `role_feature`
-  MODIFY `id_role_feature` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_role_feature` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `swakelola`
 --
 ALTER TABLE `swakelola`
-  MODIFY `id_swakelola` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_swakelola` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
@@ -1140,17 +1227,17 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `unit_satuan_kerja`
 --
 ALTER TABLE `unit_satuan_kerja`
-  MODIFY `id_unit_satuan_kerja` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_unit_satuan_kerja` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT for table `usulan_kegiatan`
 --
 ALTER TABLE `usulan_kegiatan`
-  MODIFY `id_usulan_kegiatan` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usulan_kegiatan` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --

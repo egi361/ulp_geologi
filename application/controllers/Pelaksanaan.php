@@ -10,7 +10,29 @@ class Pelaksanaan extends CController {
 	public function index(){
 		$this->load->view('pelaksanaan/index');
 	}
-		
+	
+	public function view_progress($id,$filter){
+		$data['id_pelaksanaan_kegiatan'] = $id; 
+		$data['filter'] = $filter;
+		$this->load->view('pelaksanaan/lihat_progress',$data);
+	}
+	
+	public function get_progress_keuangan($id,$filter){
+		$a = $this->PelaksanaanModel->getProgressByIdPelaksanaan($id,$filter);
+		$this->output->set_header('Content-Type: application/json; charset=utf-8');
+		$output['aaData']=array();
+		foreach($a->result() as $result){
+			$json_array=array();
+			$json_array[]=$result->tahun;
+			if($filter == 'per-bulan'){
+				$json_array[]=$result->bulan;
+			}
+			$json_array[]=$result->total_anggaran;
+			$output['aaData'][]=$json_array;
+		}
+		echo json_encode($output);
+	}
+	
 	public function get_kegiatan($metode_kegiatan){
 		$data=$this->PelaksanaanModel->get_kegiatan($metode_kegiatan);
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
@@ -22,6 +44,7 @@ class Pelaksanaan extends CController {
 			$json_array[]=$result->pagu_anggaran;
 			$json_array[]=$result->hps;
 			$json_array[]=$result->nilai_kontrak;
+			$json_array[]=$result->total_anggaran;
 			$json_array[]=$result->tahun_anggaran;
 			if($metode_kegiatan == 'penyedia'){
 				$json_array[]=$result->nama_perusahaan;
@@ -83,6 +106,20 @@ class Pelaksanaan extends CController {
 		$data['id_usulan_kegiatan']=$id;
 		$this->PelaksanaanModel->simpan($data);
 		echo 'Data Berhasil Disimpan.';
+	}
+	
+	public function update_keuangan($id){
+
+		$role=$this->PelaksanaanModel->getByIdPelaksanaan($id);
+		$data['data']=$role;
+		$this->load->view('pelaksanaan/update_keuangan',$data);
+	}
+	public function update_keuanganData($id){
+		$data['id_pelaksanaan_kegiatan']=$id;
+		$data['jumlah_anggaran']=$this->input->post('jumlah_anggaran');
+		$data['tanggal_progress_keuangan']=$this->input->post('tanggal_progress_keuangan');
+		$this->PelaksanaanModel->update_keuangan($data);
+		echo 'Progress Keuangan telah Berhasil Di Update';
 	}
 
 }

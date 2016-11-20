@@ -10,11 +10,13 @@ $this->db->insert('pelaksanaan_kegiatan',$role);
 }
 function get_kegiatan($metode_kegiatan){
 return $this->db->query("
-	select * from usulan_kegiatan uk left join unit_satuan_kerja us on us.id_unit_satuan_kerja = uk.id_unit_satuan_kerja
+	select *,sum(pkn.jumlah_anggaran) as total_anggaran from usulan_kegiatan uk left join unit_satuan_kerja us on us.id_unit_satuan_kerja = uk.id_unit_satuan_kerja
 									 left join pelaksanaan_kegiatan pk on pk.id_usulan_kegiatan = uk.id_usulan_kegiatan
 									 left join penyedia p on p.id_penyedia = pk.id_penyedia
 									 left join swakelola s on s.id_swakelola = pk.id_swakelola
+									 left join progress_keuangan pkn on pkn.id_pelaksanaan_kegiatan = pk.id_pelaksanaan_kegiatan
 	where pk.metode_kegiatan = '{$metode_kegiatan}'
+	group by pkn.id_pelaksanaan_kegiatan
 ");
 }
 
@@ -31,12 +33,51 @@ function update_status($id,$role){
 $this->db->where($this->primary,$id);
 $this->db->update($this->nama_tabel,$role);
 }
+function update_keuangan($role){
+$this->db->insert('progress_keuangan',$role);
+}
 function getById($id){
 $data=$this->db->query("
 	select * from usulan_kegiatan uk left join unit_satuan_kerja us on us.id_unit_satuan_kerja = uk.id_unit_satuan_kerja
 	where uk.id_usulan_kegiatan = '{$id}'
 ");
 return $data->row();
+}
+function getByIdPelaksanaan($id){
+$data=$this->db->query("
+	select * from pelaksanaan_kegiatan pk 
+		left join usulan_kegiatan uk on pk.id_usulan_kegiatan = uk.id_usulan_kegiatan 
+		left join unit_satuan_kerja us on us.id_unit_satuan_kerja = uk.id_unit_satuan_kerja
+	where pk.id_pelaksanaan_kegiatan = '{$id}'
+");
+return $data->row();
+}
+function getProgressByIdPelaksanaan($id,$filter = 'per-tahun'){
+switch($filter){
+	case 'per-tahun':
+		$data=$this->db->query("
+			select YEAR(tanggal_progress_keuangan) as tahun,  
+					sum(jumlah_anggaran) as total_anggaran 
+			from progress_keuangan where id_pelaksanaan_kegiatan = '{$id}'
+			group by YEAR(tanggal_progress_keuangan)
+			order by  id_progress_keuangan DESC
+			
+		");
+		break;
+	case 'per-bulan':
+		$data=$this->db->query("
+			select YEAR(tanggal_progress_keuangan) as tahun, 
+					MONTHNAME(tanggal_progress_keuangan) as bulan,
+					sum(jumlah_anggaran) as total_anggaran
+			from progress_keuangan 
+			where id_pelaksanaan_kegiatan = '{$id}'
+			group by Month(tanggal_progress_keuangan), Year(tanggal_progress_keuangan)
+			order by  id_progress_keuangan DESC
+		");
+		break;
+}
+
+return $data;
 }
 function hapus($id){
 $this->db->where($this->primary,$id);

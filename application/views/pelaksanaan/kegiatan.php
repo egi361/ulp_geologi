@@ -6,6 +6,7 @@
 					<th>Pagu Anggaran</th>
 					<th>HPS</th>
 					<th>Nilai Kontrak</th>
+					<th>Progress Keuangan</th>
 					<th>Tahun Anggaran</th>
 					<?php
 					if($metode_kegiatan == 'penyedia'){
@@ -31,64 +32,42 @@
 		</table>
 		<script>
 		$(document).ready(function(){
-					var table=$('#TableKegiatan').DataTable({
-					  "paging": true,
-					  "responsive": true,
-					  "ordering": true,
-					  "info": true,
-					  "autoWidth": true,
-					  "fnRowCallback":function(Row,Data){
-									  if($('#TableKegiatan').attr('metode-kegiatan') == 'penyedia'){
-										 $(Row).attr('id',Data[13]);
-									  } else {
-										 $(Row).attr('id',Data[12]);
-									  }
-									 
-									  return Row;
-					  },
-					  "ajax":{
-								"url":"Pelaksanaan/get_kegiatan/<?=$metode_kegiatan?>",
-								"type":"GET"
-								}
-					});	
-					$('#TableKegiatan').on('click','tbody tr',function(){
-						if( $(this).hasClass('selected') ){
-							$(this).removeClass('selected')
-							$('#button-edit').addClass('disabled')
-							$('#button-delete').addClass('disabled')
+			var table=$('#TableKegiatan').DataTable({
+			  "paging": true,
+			  "responsive": true,
+			  "ordering": true,
+			  "info": true,
+			  "fnRowCallback":function(Row,Data){
+							  if($('#TableKegiatan').attr('metode-kegiatan') == 'penyedia'){
+								 $(Row).attr('id',Data[14]);
+							  } else {
+								 $(Row).attr('id',Data[13]);
+							  }
+							 
+							  return Row;
+			  },
+			  "ajax":{
+						"url":"Pelaksanaan/get_kegiatan/<?=$metode_kegiatan?>",
+						"type":"GET"
 						}
-						else{
-							$('#TableKegiatan tbody tr').removeClass('selected')
-							$(this).addClass('selected')
-							$('#button-edit').removeClass('disabled')
-							$('#button-delete').removeClass('disabled')
-						}
-					})
-					$("#button-edit").click(function(){
-							var id=$("#TableKegiatan .selected").attr('id')
-							if(typeof id=='undefined'){
-							alert('Please Select One Data to Edit')
-						}
-						else{
-							$('#button-edit').addClass('disabled');
-							$('#button-delete').addClass('disabled');
-							document.location.hash="Pelaksanaan/update_status/"+id;
-						}
-					})
-					$("#button-delete").click(function(){
-						var id=$("#TableKegiatan .selected").attr('id')
-						if(typeof id=='undefined'){
-							alert('Please Select One Data to Delete')
-						}
-						else{
-							if(!confirm('Are You Sure Want to Delete This Data?')){
-								return false;
-							}
-							else{
-								$('#button-delete').addClass('disabled')
-								document.location.hash="Pelaksanaan/delete/"+id;
-							}
-						}
-					})
+			});	
+			$('#TableKegiatan').on('click','tbody tr',function(){
+				if( $(this).hasClass('selected') ){
+					$(this).removeClass('selected')
+					$('#button-update-fisik').addClass('disabled');
+					$('#button-update-keuangan').addClass('disabled');
+					$('#button-view-progress').addClass('disabled');
+					$('#button-view-progress-tahun').addClass('disabled');
+				}
+				else{
+					$('#TableKegiatan tbody tr').removeClass('selected')
+					$(this).addClass('selected')
+					$('#button-update-fisik').removeClass('disabled');
+					$('#button-update-keuangan').removeClass('disabled');
+					$('#button-view-progress').removeClass('disabled');
+					$('#button-view-progress-tahun').removeClass('disabled');
+				}
+			})
+			
 		})
 		</script>
