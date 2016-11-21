@@ -1,6 +1,7 @@
 		<table id="TableProgressKeuangan" class="table dataTable table-bordered table-striped table-condensed">
 			<thead>
 				<tr>
+					<th>Kode Unit</th>
 					<th>Nama Kegiatan</th>
 					<th>Januari</th>
 					<th>Februari</th>
