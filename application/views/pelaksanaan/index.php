@@ -15,8 +15,8 @@
 					<a id="button-view-progress"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-eye"></i> Lihat Progress Per-Bulan</a>
 					<a id="button-view-progress-tahun"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-eye"></i> Lihat Progress Per-Tahun</a>
 
-					<a id="button-view-progress-keuangan" class="btn btn-primary btn-sm" style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Keuangan</a>
-					<a href="#Pelaksanaan/progress_fisik" id="button-view-progress-fisik" class="btn btn-primary btn-sm " style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Fisik</a>
+					<a href="#Pelaksanaan/progress_keuangan/" id="button-view-progress-fisik" class="btn btn-primary btn-sm " style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Keuangan</a>
+					<a href="#Pelaksanaan/progress_fisik/" id="button-view-progress-fisik" class="btn btn-primary btn-sm " style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Fisik</a>
 
 				</div><!-- /.box-header -->
                 <!-- form start -->

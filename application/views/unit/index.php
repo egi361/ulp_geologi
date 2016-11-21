@@ -33,6 +33,7 @@
 					  "ordering": true,
 					  "info": true,
 					  "autoWidth": true,
+					  "responsive":true,
 					  "ScrollX":"120",
 					  "fnRowCallback":function(Row,Data){
 									  $(Row).attr('id',Data[2]);

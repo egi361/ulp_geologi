@@ -7,9 +7,8 @@
 							$selected = '';
 							$option = '';
 							$jenis = array(
-								'Instansi Penanggung Jawab Anggaran',
-								'Instansi Lain',
-								'Kelompok Masyarakat'
+								'jasa',
+								'barang'
 							);
 							foreach( $jenis as $j ) {
 								if( $data->jenis_swakelola == $j  ):
@@ -28,10 +27,10 @@
                       </div>
                     </div>
                     
-					<div class="form-group">
-						<label for="satuan_kerja" class="col-sm-2 control-label">Nama Satuan Kerja <span class="required">*</span></label>
+					<div class="form-group jenis_jasa">
+						<label for="jenis_jasa" class="col-sm-2 control-label">Jenis Jasa / Barang<span class="required">*</span></label>
 						<div class="col-sm-9">
-							<input type="text" name="satuan_kerja" class="form-control" id="satuan_kerja" placeholder="Name" value="<?=$data->satuan_kerja?>">
+						<input type="text" name="jenis_jasa" class="form-control" id="jenis_jasa" placeholder="Jenis Jasa" value="<?=$data->jenis_jasa?>">
 						</div>
                     </div>
                   </div><!-- /.box-body -->
@@ -59,10 +58,9 @@
 			$("#btn-cancel").click(function(){
 				document.location.hash='Swakelola';
 			})
-
 			$("#form-swakelola").validate({
 	          rules: {
-	              satuan_kerja: "required",
+	              jenis_swakelola: "required",
 	          },
 	          errorClass: "block-error error",
 	          errorElement: "div",

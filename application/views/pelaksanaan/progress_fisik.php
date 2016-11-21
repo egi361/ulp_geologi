@@ -33,10 +33,8 @@
 	        		},
 	        	"scrollX": true,
         		"scrollCollapse": true,
-			 	"fnRowCallback":function(Row,Data){
-							 
-							$(Row).attr('id',Data[14]);
-							 
+			 	"fnRowCallback":function(Row,Data){	 
+							$(Row).attr('id',Data[0]);
 							return Row;
 				},
 				"ajax":{

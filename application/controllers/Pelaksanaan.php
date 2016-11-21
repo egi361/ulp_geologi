@@ -8,6 +8,7 @@ class Pelaksanaan extends CController {
 		
 	}
 	public function index(){
+		
 		$this->load->view('pelaksanaan/index');
 	}
 	
@@ -26,38 +27,56 @@ class Pelaksanaan extends CController {
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
 		$output['aaData']=array();
 		foreach($data->result() as $result){
-			$data_progress = $this->PelaksanaanModel->getListProgressFisik( $result->id_pelaksanaan_kegiatan );
 			$json_array = array();
-			$json_array[0] = $result->nama_kegiatan;
+			$json_array[] = $result->nama_kegiatan;
 
-			$c = 1;
-			// foreach ($data_progress->result() as $progfisik) {
+			for( $i = 1 ; $i <= 12 ; $i++ ){
+				$data_progress = $this->PelaksanaanModel->getListProgressFisik($i, 2016, $result->id_pelaksanaan_kegiatan )->row();
 
-			// 	$json_array[$c] = $c;
-			// 	if( $c == 12 ): 
-			// 		break;
-			// 	endif;
-			// 	$c++;
-			// }
-			$json_array[1] = $result->nama_kegiatan;
-			$json_array[2] = $result->nama_kegiatan;
-			$json_array[3] = $result->nama_kegiatan;
-			$json_array[4] = $result->nama_kegiatan;
-			$json_array[5] = $result->nama_kegiatan;
-			$json_array[6] = $result->nama_kegiatan;
-			$json_array[7] = $result->nama_kegiatan;
-			$json_array[8] = $result->nama_kegiatan;
-			$json_array[9] = $result->nama_kegiatan;
-			$json_array[10] = $result->nama_kegiatan;
-			$json_array[11] = $result->nama_kegiatan;
-			$json_array[12] = $result->nama_kegiatan;
-
-			$json_array[13] = '100%';
-			$json_array[14] = $result->id_pelaksanaan_kegiatan;
+				if( isset( $data_progress) ){
+					$x = $data_progress->persentase_progress;
+				}else{
+					$x = '';
+				}
+				$json_array[] = $x;
+			}
+			
+			$json_array[] = '100%';
 			$output['aaData'][] = $json_array;
 		}
 		echo json_encode($output);
 	}	
+
+	public function progress_keuangan(){
+		$this->load->view( 'pelaksanaan/progress_keuangan' );
+	}
+	public function getProgressKeuangan(){
+		$data=$this->PelaksanaanModel->get_kegiatan('penyedia');
+		
+		$output['aaData']=array();
+		foreach($data->result() as $result){
+			$arr = array();
+			// $arr[] = $result->id_pelaksanaan_kegiatan;
+			// $arr[] = $result->kode_unit_satuan_kerja;
+			
+			$arr[] = $result->nama_kegiatan;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(1,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(2,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(3,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(4,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(5,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(6,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(7,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(8,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(9,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(10,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(11,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(12,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $result->nama_unit;
+			$output['aaData'][]=$arr;
+		}
+		echo json_encode($output);
+	}
 
 	public function get_progress_keuangan($id,$filter){
 		$a = $this->PelaksanaanModel->getProgressByIdPelaksanaan($id,$filter);
@@ -123,7 +142,7 @@ class Pelaksanaan extends CController {
 				$json_array[]=$result->nama_perusahaan;
 				$json_array[]=$result->pemilihan_penyedia;
 			} else {
-				$json_array[]=$result->satuan_kerja;
+				$json_array[]=$result->jenis_jasa;
 			}
 			$json_array[]=$result->tanggal_awal_pelaksanaan;
 			$json_array[]=$result->tanggal_akhir_pelaksanaan;
@@ -153,7 +172,7 @@ class Pelaksanaan extends CController {
 			$swakelola = $this->SwakelolaModel->get();
 			$data_select = array();
 			foreach ($swakelola->result() as $key => $value) {
-				$data_select[] = array('id' => $value->id_swakelola , 'text' => $value->satuan_kerja );
+				$data_select[] = array('id' => $value->id_swakelola , 'text' => $value->jenis_jasa );
 			}
 			$data['swakelola'] = json_encode($data_select);
 			$data['data']=$role;

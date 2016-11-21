@@ -28,6 +28,30 @@ function getPelaksanaanByUnit($id_unit){
 	");
 	return $data_unit;
 }
+function getPKperMonth($month,$year,$id_pk){
+
+return $this->db->query("
+	select sum(pku.jumlah_anggaran) as total_anggaran
+	from pelaksanaan_kegiatan pk 
+		left join progress_keuangan pku on pku.id_pelaksanaan_kegiatan = pk.id_pelaksanaan_kegiatan
+	where month(pku.tanggal_progress_keuangan) = '{$month}' and 
+		  year(pku.tanggal_progress_keuangan) = '{$year}' and 
+		  pk.id_pelaksanaan_kegiatan = '{$id_pk}'
+");
+}
+
+function getPFperMonth($month,$year,$id_pk){
+
+return $this->db->query("
+	select *
+	from pelaksanaan_kegiatan pk 
+		left join progress_fisik pkf on pkf.id_pelaksanaan_kegiatan = pk.id_pelaksanaan_kegiatan
+	where month(pkf.tanggal_progress_fisik) = '{$month}' and 
+		  year(pkf.tanggal_progress_fisik) = '{$year}' and 
+		  pk.id_pelaksanaan_kegiatan = '{$id_pk}'
+");
+}
+
 function get_kegiatan($metode_kegiatan){
 	$id_unit = $this->session->userdata('role') == 11 ? $this->session->userdata('id_unit_satuan_kerja') : "%%";
 	return $this->db->query("
@@ -131,12 +155,14 @@ function get_kegiatan($metode_kegiatan){
 		return $data;	
 	}
 
-	function getListProgressFisik( $id ){
+	function getListProgressFisik( $month, $year, $id ){
 		$data=$this->db->query("
 			select pf.*
 			from progress_fisik pf
-			where id_pelaksanaan_kegiatan = '{$id}'
-			group by id_pelaksanaan_kegiatan
+			where month(pf.tanggal_progress_fisik) = '{$month}' and 
+		  	year(pf.tanggal_progress_fisik) = '{$year}' and 
+		  	pf.id_pelaksanaan_kegiatan = '{$id}'
+			
 		");
 
 		return $data;	

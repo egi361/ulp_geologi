@@ -38,6 +38,7 @@
             },
             "paging": true,
             "ordering": true,
+			"responsive":true,
             "info": true,
             "autoWidth": true,
             "Processing": true,

@@ -53,6 +53,7 @@ $(document).ready(function(){
       "info": true,
       "autoWidth": true,
       "ScrollX":"120",
+	  "responsive":true,
       "fnRowCallback":function(Row,Data){
                       $(Row).attr('id',Data[11]);
                       return Row;
