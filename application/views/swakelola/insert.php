@@ -4,16 +4,15 @@
                       <label for="jenis_swakelola" class="col-sm-2 control-label">Jenis Swakelola <span class="required">*</span></label>
                       <div class="col-sm-9">
 						<select id="jenis_swakelola" name="jenis_swakelola" class="form-control" placeholder="Pilih Jenis Swakelola">
-							<option value="Instansi Penanggung Jawab Anggaran">Instansi Penanggung Jawab Anggaran</option>
-							<option value="Instansi Lain">Instansi Lain</option>
-							<option value="Kelompok Masyarakat">Kelompok Masyarakat</option>
+							<option value="jasa">Jasa </option>
+							<option value="barang">Barang </option>
 						</select>
                       </div>
                     </div>
-					<div class="form-group">
-						<label for="satuan_kerja" class="col-sm-2 control-label">Nama Satuan Kerja <span class="required">*</span></label>
+					<div class="form-group jenis_jasa">
+						<label for="jenis_jasa" class="col-sm-2 control-label">Jenis Jasa / Barang <span class="required">*</span></label>
 						<div class="col-sm-9">
-						<input type="text" name="satuan_kerja" class="form-control" id="satuan_kerja" placeholder="Nama Satuan Kerja">
+						<input type="text" name="jenis_jasa" class="form-control" id="jenis_jasa" placeholder="Jenis Jasa">
 						</div>
                     </div>
 				  <div class="box-footer">
@@ -36,14 +35,15 @@
 		                $('#'+idd).parent('.col-sm-9').parent('.form-group').addClass('has-error');
 		             });
 		          }
-			})
+			});
+
 			$("#btn-cancel").click(function(){
 				document.location.hash='Swakelola';
 			})
 
 			$("#form-swakelola").validate({
 	          rules: {
-	              satuan_kerja: "required",
+	              jenis_swakelola: "required",
 	          },
 	          errorClass: "block-error error",
 	          errorElement: "div",

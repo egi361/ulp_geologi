@@ -81,7 +81,7 @@ class Pelaksanaan extends CController {
 				$json_array[]=$result->nama_perusahaan;
 				$json_array[]=$result->pemilihan_penyedia;
 			} else {
-				$json_array[]=$result->satuan_kerja;
+				$json_array[]=$result->jenis_jasa;
 			}
 			$json_array[]=$result->tanggal_awal_pelaksanaan;
 			$json_array[]=$result->tanggal_akhir_pelaksanaan;
@@ -111,7 +111,7 @@ class Pelaksanaan extends CController {
 			$swakelola = $this->SwakelolaModel->get();
 			$data_select = array();
 			foreach ($swakelola->result() as $key => $value) {
-				$data_select[] = array('id' => $value->id_swakelola , 'text' => $value->satuan_kerja );
+				$data_select[] = array('id' => $value->id_swakelola , 'text' => $value->jenis_jasa );
 			}
 			$data['swakelola'] = json_encode($data_select);
 			$data['data']=$role;

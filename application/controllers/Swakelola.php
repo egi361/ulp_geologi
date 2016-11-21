@@ -18,7 +18,7 @@ class Swakelola extends CController {
 		foreach($data->result() as $result){
 			$json_array=array();
 			$json_array[]=$result->jenis_swakelola;
-			$json_array[]=$result->satuan_kerja;
+			$json_array[]=$result->jenis_jasa;
 			$json_array[]=$result->id_swakelola;
 			$output['aaData'][]=$json_array;
 		}
@@ -31,7 +31,7 @@ class Swakelola extends CController {
 
 	public function insertData(){
 		$data['jenis_swakelola']=$this->input->post('jenis_swakelola');
-		$data['satuan_kerja']=$this->input->post('satuan_kerja');
+		$data['jenis_jasa']=$this->input->post('jenis_jasa');
 		$this->SwakelolaModel->simpan($data);
 		echo 'Data Berhasil Disimpan.';
 	}
@@ -45,7 +45,7 @@ class Swakelola extends CController {
 
 	public function editData($id){
 		$data['jenis_swakelola']=$this->input->post('jenis_swakelola');
-		$data['satuan_kerja']=$this->input->post('satuan_kerja');
+		$data['jenis_jasa']=$this->input->post('jenis_jasa');
 		$this->SwakelolaModel->update($id,$data);
 		echo 'Data Berhasil Disimpan.';
 	}

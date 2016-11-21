@@ -1,4 +1,4 @@
-		<table id="TableKegiatan" metode-kegiatan="<?=$metode_kegiatan?>"  class="table dataTable table-bordered table-striped table-condensed">
+		<table id="TableKegiatan" metode-kegiatan="<?=$metode_kegiatan?>"  class="table dataTable table-responsive table-bordered table-striped table-condensed">
 			<thead>
 				<tr>
 					<th>Nama Unit</th>
