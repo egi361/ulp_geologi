@@ -18,9 +18,37 @@ class Pelaksanaan extends CController {
 		$this->load->view('pelaksanaan/lihat_progress',$data);
 	}
 	
-	public function progress_fisik(){
-		$this->load->view( 'pelaksanaan/progress_fisik' );
+	public function progress_fisik($tahun = null){
+		$tahun = $tahun == null ? date('Y') : $tahun;
+		$this->load->view( 'pelaksanaan/progress_fisik', array( 'tahun' => $tahun ) );
 	}
+
+
+	public function get_progress_fisik($tahun){
+		$data = $this->PelaksanaanModel->get_kegiatan_report();
+		$this->output->set_header('Content-Type: application/json; charset=utf-8');
+		$output['aaData']=array();
+		foreach($data->result() as $result){
+			$json_array = array();
+			$json_array[] = $result->nama_kegiatan;
+
+			for( $i = 1 ; $i <= 12 ; $i++ ){
+				$data_progress = $this->PelaksanaanModel->getListProgressFisik($i, $tahun, $result->id_pelaksanaan_kegiatan )->row();
+
+				if( isset( $data_progress) ){
+					$x = $data_progress->persentase_progress;
+				}else{
+					$x = '';
+				}
+				$json_array[] = $x;
+			}
+			
+			$json_array[] = '100%';
+			$output['aaData'][] = $json_array;
+		}
+		echo json_encode($output);
+	}	
+
 	public function progress_keuangan($tahun = null){
 		$tahun = $tahun == null ? date('Y') : $tahun;
 		$this->load->view( 'pelaksanaan/progress_keuangan',array('tahun'=>$tahun) );
@@ -63,6 +91,7 @@ class Pelaksanaan extends CController {
 		}
 		echo json_encode($output);
 	}
+
 	public function get_progress_keuangan($id,$filter){
 		$a = $this->PelaksanaanModel->getProgressByIdPelaksanaan($id,$filter);
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');

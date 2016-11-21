@@ -40,9 +40,21 @@ return $this->db->query("
 ");
 }
 
-function get_kegiatan($metode_kegiatan){
-$id_unit = $this->session->userdata('role') == 11 ? $this->session->userdata('id_unit_satuan_kerja') : "%%";
+function getPFperMonth($month,$year,$id_pk){
+
 return $this->db->query("
+	select *
+	from pelaksanaan_kegiatan pk 
+		left join progress_fisik pkf on pkf.id_pelaksanaan_kegiatan = pk.id_pelaksanaan_kegiatan
+	where month(pkf.tanggal_progress_fisik) = '{$month}' and 
+		  year(pkf.tanggal_progress_fisik) = '{$year}' and 
+		  pk.id_pelaksanaan_kegiatan = '{$id_pk}'
+");
+}
+
+function get_kegiatan($metode_kegiatan){
+	$id_unit = $this->session->userdata('role') == 11 ? $this->session->userdata('id_unit_satuan_kerja') : "%%";
+	return $this->db->query("
 	select *
 	from pelaksanaan_kegiatan pk 
 		left join usulan_kegiatan uk on pk.id_usulan_kegiatan = uk.id_usulan_kegiatan
@@ -142,6 +154,20 @@ return $this->db->query("
 
 		return $data;	
 	}
+
+	function getListProgressFisik( $month, $year, $id ){
+		$data=$this->db->query("
+			select pf.*
+			from progress_fisik pf
+			where month(pf.tanggal_progress_fisik) = '{$month}' and 
+		  	year(pf.tanggal_progress_fisik) = '{$year}' and 
+		  	pf.id_pelaksanaan_kegiatan = '{$id}'
+			
+		");
+
+		return $data;	
+	}
+
 	function getCurrentProgressKeuangan($id){
 
 		$data=$this->db->query("
