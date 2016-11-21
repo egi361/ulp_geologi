@@ -1,6 +1,8 @@
+		<center><h1>Tahun <?=$tahun?></h1></center><br>
 		<table id="TableProgressKeuangan" class="table dataTable table-bordered table-striped table-condensed">
 			<thead>
 				<tr>
+					<th>Kode Unit</th>
 					<th>Nama Kegiatan</th>
 					<th>Januari</th>
 					<th>Februari</th>
@@ -32,7 +34,7 @@
 							  return Row;
 			  },
 			  "ajax":{
-						"url":"Pelaksanaan/getProgressKeuangan/",
+						"url":"Pelaksanaan/getProgressKeuangan/<?=$tahun?>",
 						"type":"GET"
 						}
 			});	

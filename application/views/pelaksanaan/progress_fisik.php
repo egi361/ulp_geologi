@@ -38,7 +38,7 @@
 							return Row;
 				},
 				"ajax":{
-					"url":"Pelaksanaan/get_progress_fisik",
+					"url":"Pelaksanaan/get_progress_fisik/<?=$tahun?>",
 					"type":"GET"
 				}
 			});	

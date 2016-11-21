@@ -61,7 +61,7 @@ function get_kegiatan($metode_kegiatan){
 		left join unit_satuan_kerja us on us.id_unit_satuan_kerja = uk.id_unit_satuan_kerja and uk.status_kegiatan = 'disetujui'
 		left join penyedia p on p.id_penyedia = pk.id_penyedia
 		left join swakelola s on s.id_swakelola = pk.id_swakelola
-	where pk.metode_kegiatan = '{$metode_kegiatan}' and uk.id_unit_satuan_kerja like '{$id_unit}'
+	where pk.metode_kegiatan like '{$metode_kegiatan}' and uk.id_unit_satuan_kerja like '{$id_unit}'
 	group by pk.id_pelaksanaan_kegiatan
 		");
 	}

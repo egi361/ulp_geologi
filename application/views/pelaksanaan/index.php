@@ -15,8 +15,10 @@
 					<a id="button-view-progress"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-eye"></i> Lihat Progress Per-Bulan</a>
 					<a id="button-view-progress-tahun"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-eye"></i> Lihat Progress Per-Tahun</a>
 
-					<a href="#Pelaksanaan/progress_keuangan/" id="button-view-progress-fisik" class="btn btn-primary btn-sm " style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Keuangan</a>
-					<a href="#Pelaksanaan/progress_fisik/" id="button-view-progress-fisik" class="btn btn-primary btn-sm " style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Fisik</a>
+					<a href="#Pelaksanaan/progress_keuangan/<?=date('Y')?>" id="button-view-progress-keuangan" class="btn btn-primary btn-sm " style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Keuangan</a>
+					<a href="#Pelaksanaan/progress_fisik/<?=date('Y')?>" id="button-view-progress-fisik" class="btn btn-primary btn-sm " style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Fisik</a>
+
+					Tahun <input type="text" name="tahun_anggaran_report" id="tahun_anggaran_report" placeholder="Tahun" value="<?=date('Y')?>">
 
 				</div><!-- /.box-header -->
                 <!-- form start -->
@@ -58,6 +60,10 @@
 						"type":"GET"
 						}
 			});	
+			$('#tahun_anggaran_report').change(function(){
+				$('#button-view-progress-keuangan').attr('href',"#Pelaksanaan/progress_keuangan/" + this.value);
+				$('#button-view-progress-fisik').attr('href',"#Pelaksanaan/progress_fisik/" + this.value);
+			})
 			$("#button-update-fisik").click(function(){
 					var id=$("#TableKegiatan .selected").attr('id')
 				if(typeof id=='undefined'){

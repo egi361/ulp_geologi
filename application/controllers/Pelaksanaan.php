@@ -18,11 +18,13 @@ class Pelaksanaan extends CController {
 		$this->load->view('pelaksanaan/lihat_progress',$data);
 	}
 	
-	public function progress_fisik(){
-		$this->load->view( 'pelaksanaan/progress_fisik' );
+	public function progress_fisik($tahun = null){
+		$tahun = $tahun == null ? date('Y') : $tahun;
+		$this->load->view( 'pelaksanaan/progress_fisik', array( 'tahun' => $tahun ) );
 	}
 
-	public function get_progress_fisik(){
+
+	public function get_progress_fisik($tahun){
 		$data = $this->PelaksanaanModel->get_kegiatan_report();
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
 		$output['aaData']=array();
@@ -31,7 +33,7 @@ class Pelaksanaan extends CController {
 			$json_array[] = $result->nama_kegiatan;
 
 			for( $i = 1 ; $i <= 12 ; $i++ ){
-				$data_progress = $this->PelaksanaanModel->getListProgressFisik($i, 2016, $result->id_pelaksanaan_kegiatan )->row();
+				$data_progress = $this->PelaksanaanModel->getListProgressFisik($i, $tahun, $result->id_pelaksanaan_kegiatan )->row();
 
 				if( isset( $data_progress) ){
 					$x = $data_progress->persentase_progress;
@@ -47,32 +49,44 @@ class Pelaksanaan extends CController {
 		echo json_encode($output);
 	}	
 
-	public function progress_keuangan(){
-		$this->load->view( 'pelaksanaan/progress_keuangan' );
+	public function progress_keuangan($tahun = null){
+		$tahun = $tahun == null ? date('Y') : $tahun;
+		$this->load->view( 'pelaksanaan/progress_keuangan',array('tahun'=>$tahun) );
 	}
-	public function getProgressKeuangan(){
-		$data=$this->PelaksanaanModel->get_kegiatan('penyedia');
+	public function getProgressKeuangan($tahun){
+		$data=$this->PelaksanaanModel->get_kegiatan('%%');
 		
 		$output['aaData']=array();
 		foreach($data->result() as $result){
 			$arr = array();
 			// $arr[] = $result->id_pelaksanaan_kegiatan;
-			// $arr[] = $result->kode_unit_satuan_kerja;
-			
+			$arr[] = $result->kode_unit_satuan_kerja;
+			$jan = $this->PelaksanaanModel->getPKperMonth(1,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$feb = $this->PelaksanaanModel->getPKperMonth(2,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$mar = $this->PelaksanaanModel->getPKperMonth(3,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$apr = $this->PelaksanaanModel->getPKperMonth(4,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$mei = $this->PelaksanaanModel->getPKperMonth(5,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$jun = $this->PelaksanaanModel->getPKperMonth(6,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$jul = $this->PelaksanaanModel->getPKperMonth(7,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$aug = $this->PelaksanaanModel->getPKperMonth(8,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$sep = $this->PelaksanaanModel->getPKperMonth(9,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$okt = $this->PelaksanaanModel->getPKperMonth(10,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$nov = $this->PelaksanaanModel->getPKperMonth(11,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$des = $this->PelaksanaanModel->getPKperMonth(12,$tahun,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
 			$arr[] = $result->nama_kegiatan;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(1,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(2,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(3,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(4,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(5,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(6,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(7,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(8,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(9,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(10,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(11,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $this->PelaksanaanModel->getPKperMonth(12,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
-			$arr[] = $result->nama_unit;
+			$arr[] = $jan;
+			$arr[] = $feb;
+			$arr[] = $mar;
+			$arr[] = $apr;
+			$arr[] = $mei;
+			$arr[] = $jun;
+			$arr[] = $jul;
+			$arr[] = $aug;
+			$arr[] = $sep;
+			$arr[] = $okt;
+			$arr[] = $nov;
+			$arr[] = $des;
+			$arr[] = $jan + $feb + $mar + $apr + $mei + $jun + $jul + $aug + $sep + $okt + $nov + $des;
 			$output['aaData'][]=$arr;
 		}
 		echo json_encode($output);
