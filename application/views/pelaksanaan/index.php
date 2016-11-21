@@ -21,7 +21,19 @@
                 <!-- form start -->
 
                   <div class="box-body animated fadeInUpBig" id="box-content">
-
+					<table id="TableLaporanPerUnit" class="table dataTable table-bordered table-striped table-condensed">
+						<thead>
+							<tr>
+								<th>Kode Unit</th>
+								<th>Nama Unit</th>
+								<th>Total Pagu Anggaran</th>
+								<th>Total Nilai Kontrak</th>
+								<th>Total Progress Keuangan</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
                   </div><!-- /.box-body -->
 				  <div class="box-footer">
 
@@ -29,10 +41,22 @@
               </div><!-- /.box -->
         </section><!-- /.content -->
 		<script>
-		$(document).on('controllerReady',function(e,controller){
-			if(controller == 'Pelaksanaan'){
-				document.location.hash='Pelaksanaan/kegiatan/swakelola';
-			}
+		$(document).ready(function(){
+
+			var tableLaporan=$('#TableLaporanPerUnit').DataTable({
+			  "paging": true,
+			  "responsive": true,
+			  "ordering": true,
+			  "info": true,
+			  "fnRowCallback":function(Row,Data){
+							  $(Row).attr('id',Data[5]);
+							  return Row;
+			  },
+			  "ajax":{
+						"url":"Pelaksanaan/get_laporan_unit/",
+						"type":"GET"
+						}
+			});	
 			$("#button-update-fisik").click(function(){
 					var id=$("#TableKegiatan .selected").attr('id')
 				if(typeof id=='undefined'){

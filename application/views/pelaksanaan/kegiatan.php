@@ -7,6 +7,7 @@
 					<th>HPS</th>
 					<th>Nilai Kontrak</th>
 					<th>Progress Keuangan</th>
+					<th>Progress Fisik</th>
 					<th>Tahun Anggaran</th>
 					<?php
 					if($metode_kegiatan == 'penyedia'){
@@ -39,9 +40,9 @@
 			  "info": true,
 			  "fnRowCallback":function(Row,Data){
 							  if($('#TableKegiatan').attr('metode-kegiatan') == 'penyedia'){
-								 $(Row).attr('id',Data[14]);
+								 $(Row).attr('id',Data[15]);
 							  } else {
-								 $(Row).attr('id',Data[13]);
+								 $(Row).attr('id',Data[14]);
 							  }
 							 
 							  return Row;
