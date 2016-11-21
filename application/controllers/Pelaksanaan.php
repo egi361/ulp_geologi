@@ -8,6 +8,7 @@ class Pelaksanaan extends CController {
 		
 	}
 	public function index(){
+		
 		$this->load->view('pelaksanaan/index');
 	}
 	
@@ -20,7 +21,36 @@ class Pelaksanaan extends CController {
 	public function progress_fisik(){
 		$this->load->view( 'pelaksanaan/progress_fisik' );
 	}
-
+	public function progress_keuangan(){
+		$this->load->view( 'pelaksanaan/progress_keuangan' );
+	}
+	public function getProgressKeuangan(){
+		$data=$this->PelaksanaanModel->get_kegiatan('penyedia');
+		
+		$output['aaData']=array();
+		foreach($data->result() as $result){
+			$arr = array();
+			// $arr[] = $result->id_pelaksanaan_kegiatan;
+			// $arr[] = $result->kode_unit_satuan_kerja;
+			
+			$arr[] = $result->nama_kegiatan;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(1,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(2,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(3,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(4,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(5,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(6,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(7,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(8,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(9,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(10,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(11,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $this->PelaksanaanModel->getPKperMonth(12,2016,$result->id_pelaksanaan_kegiatan)->row()->total_anggaran;
+			$arr[] = $result->nama_unit;
+			$output['aaData'][]=$arr;
+		}
+		echo json_encode($output);
+	}
 	public function get_progress_keuangan($id,$filter){
 		$a = $this->PelaksanaanModel->getProgressByIdPelaksanaan($id,$filter);
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
