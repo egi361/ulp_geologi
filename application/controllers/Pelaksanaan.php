@@ -21,6 +21,44 @@ class Pelaksanaan extends CController {
 		$this->load->view( 'pelaksanaan/progress_fisik' );
 	}
 
+	public function get_progress_fisik(){
+		$data = $this->PelaksanaanModel->get_kegiatan_report();
+		$this->output->set_header('Content-Type: application/json; charset=utf-8');
+		$output['aaData']=array();
+		foreach($data->result() as $result){
+			$data_progress = $this->PelaksanaanModel->getListProgressFisik( $result->id_pelaksanaan_kegiatan );
+			$json_array = array();
+			$json_array[0] = $result->nama_kegiatan;
+
+			$c = 1;
+			// foreach ($data_progress->result() as $progfisik) {
+
+			// 	$json_array[$c] = $c;
+			// 	if( $c == 12 ): 
+			// 		break;
+			// 	endif;
+			// 	$c++;
+			// }
+			$json_array[1] = $result->nama_kegiatan;
+			$json_array[2] = $result->nama_kegiatan;
+			$json_array[3] = $result->nama_kegiatan;
+			$json_array[4] = $result->nama_kegiatan;
+			$json_array[5] = $result->nama_kegiatan;
+			$json_array[6] = $result->nama_kegiatan;
+			$json_array[7] = $result->nama_kegiatan;
+			$json_array[8] = $result->nama_kegiatan;
+			$json_array[9] = $result->nama_kegiatan;
+			$json_array[10] = $result->nama_kegiatan;
+			$json_array[11] = $result->nama_kegiatan;
+			$json_array[12] = $result->nama_kegiatan;
+
+			$json_array[13] = '100%';
+			$json_array[14] = $result->id_pelaksanaan_kegiatan;
+			$output['aaData'][] = $json_array;
+		}
+		echo json_encode($output);
+	}	
+
 	public function get_progress_keuangan($id,$filter){
 		$a = $this->PelaksanaanModel->getProgressByIdPelaksanaan($id,$filter);
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');

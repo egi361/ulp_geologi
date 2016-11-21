@@ -29,8 +29,8 @@ function getPelaksanaanByUnit($id_unit){
 	return $data_unit;
 }
 function get_kegiatan($metode_kegiatan){
-$id_unit = $this->session->userdata('role') == 11 ? $this->session->userdata('id_unit_satuan_kerja') : "%%";
-return $this->db->query("
+	$id_unit = $this->session->userdata('role') == 11 ? $this->session->userdata('id_unit_satuan_kerja') : "%%";
+	return $this->db->query("
 	select *
 	from pelaksanaan_kegiatan pk 
 		left join usulan_kegiatan uk on pk.id_usulan_kegiatan = uk.id_usulan_kegiatan
@@ -130,6 +130,18 @@ return $this->db->query("
 
 		return $data;	
 	}
+
+	function getListProgressFisik( $id ){
+		$data=$this->db->query("
+			select pf.*
+			from progress_fisik pf
+			where id_pelaksanaan_kegiatan = '{$id}'
+			group by id_pelaksanaan_kegiatan
+		");
+
+		return $data;	
+	}
+
 	function getCurrentProgressKeuangan($id){
 
 		$data=$this->db->query("
