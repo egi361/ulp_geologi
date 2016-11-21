@@ -14,6 +14,7 @@
 					?>	
 					<a id="button-view-progress"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-eye"></i> Lihat Progress Per-Bulan</a>
 					<a id="button-view-progress-tahun"class="btn btn-primary btn-sm disabled" style="margin-right: 5px;"><i class="fa fa-eye"></i> Lihat Progress Per-Tahun</a>
+
 				</div><!-- /.box-header -->
                 <!-- form start -->
 
