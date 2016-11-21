@@ -17,6 +17,10 @@ class Pelaksanaan extends CController {
 		$this->load->view('pelaksanaan/lihat_progress',$data);
 	}
 	
+	public function progress_fisik(){
+		$this->load->view( 'pelaksanaan/progress_fisik' );
+	}
+
 	public function get_progress_keuangan($id,$filter){
 		$a = $this->PelaksanaanModel->getProgressByIdPelaksanaan($id,$filter);
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
