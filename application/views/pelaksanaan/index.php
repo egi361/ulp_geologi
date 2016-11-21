@@ -17,7 +17,7 @@
 
 					<a href="#Pelaksanaan/progress_keuangan/<?=date('Y')?>" id="button-view-progress-keuangan" class="btn btn-primary btn-sm " style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Keuangan</a>
 					<a href="#Pelaksanaan/progress_fisik/" id="button-view-progress-fisik" class="btn btn-primary btn-sm " style="margin-right: 5px;"><i class="fa fa-eye"></i> Progress Fisik</a>
-					<input type="text" name="tahun_anggaran_report" id="tahun_anggaran_report" placeholder="Tahun" value="<?=date('Y')?>">
+					Tahun <input type="text" name="tahun_anggaran_report" id="tahun_anggaran_report" placeholder="Tahun" value="<?=date('Y')?>">
 				</div><!-- /.box-header -->
                 <!-- form start -->
 
